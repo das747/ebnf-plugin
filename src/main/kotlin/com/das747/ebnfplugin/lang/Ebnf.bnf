@@ -1,0 +1,47 @@
+{
+  parserClass="com.das747.ebnfplugin.lang.parser.EbnfParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Ebnf"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.das747.ebnfplugin.lang.psi"
+  psiImplPackage="com.das747.ebnfplugin.lang.psi.impl"
+
+  elementTypeHolderClass="com.das747.ebnfplugin.lang.psi.EbnfTypes"
+  elementTypeClass="com.das747.ebnfplugin.lang.psi.EbnfElementType"
+  tokenTypeClass="com.das747.ebnfplugin.lang.psi.EbnfTokenType"
+
+  tokens=[
+     ASSN=":="
+     SEMI=";"
+     OR="|"
+     CURL_L="{"
+     CURL_R="}"
+     SQR_L="["
+     SQR_R="]"
+     BRACE_L="("
+     BRACE_R=")"
+
+     space='regexp:\s+'
+     comment='regexp://.*'
+     number='regexp:\d+(\.\d*)?'
+     id='regexp:\p{Alpha}\w*'
+     string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+  ]
+}
+
+root ::= root_item *
+private root_item ::= !<<eof>> rule ';' {pin=1 recoverWhile=rule_recover}
+rule ::= non-terminal ':=' alternative {pin=2}
+alternative ::= pattern alternative_op*
+private rule_recover ::= !(';' | id ':=')
+private alternative_op ::= '|' pattern
+private pattern ::= element concat* | zeroOrMore | zeroOrOne | group
+private element ::= terminal | non-terminal
+left concat ::= pattern +
+zeroOrOne ::= '[' alternative ']'
+zeroOrMore ::= '{' alternative '}'
+group ::= '(' alternative ')'
+non-terminal ::= id
+terminal ::= string

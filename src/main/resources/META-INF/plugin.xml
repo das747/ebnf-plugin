@@ -31,5 +31,8 @@
       fieldName="INSTANCE"
       language="EBNF"
       extensions="ebnf"/>
+    <lang.parserDefinition
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.lang.EbnfParserDefinition"/>
   </extensions>
 </idea-plugin>
