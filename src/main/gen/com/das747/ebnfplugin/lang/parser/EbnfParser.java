@@ -21,7 +21,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
 
   public void parseLight(IElementType t, PsiBuilder b) {
     boolean r;
-    b = adapt_builder_(t, b, this, null);
+    b = adapt_builder_(t, b, this, EXTENDS_SETS_);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
     r = parse_root_(t, b);
     exit_section_(b, 0, m, t, r, true, TRUE_CONDITION);
@@ -34,6 +34,11 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   static boolean parse_root_(IElementType t, PsiBuilder b, int l) {
     return root(b, l + 1);
   }
+
+  public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
+    create_token_set_(ALTERNATIVE_EXPR, CONCAT_EXPR, EXPR, MULTIPLE_EXPR,
+      NON_TERMINAL, OPTIONAL_EXPR, TERMINAL),
+  };
 
   /* ********************************************************** */
   // ('|' non_alternative_expr) +
@@ -94,13 +99,13 @@ public class EbnfParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // non_alternative_expr alternative_expr ?
-  static boolean expr(PsiBuilder b, int l) {
+  public static boolean expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr")) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _COLLAPSE_, EXPR, "<expr>");
     r = non_alternative_expr(b, l + 1);
     r = r && expr_1(b, l + 1);
-    exit_section_(b, m, null, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 

@@ -5,24 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface EbnfConcatExpr extends PsiElement {
+public interface EbnfConcatExpr extends EbnfExpr {
 
   @NotNull
-  List<EbnfAlternativeExpr> getAlternativeExprList();
-
-  @NotNull
-  List<EbnfConcatExpr> getConcatExprList();
-
-  @NotNull
-  List<EbnfMultipleExpr> getMultipleExprList();
-
-  @NotNull
-  List<EbnfNonTerminal> getNonTerminalList();
-
-  @NotNull
-  List<EbnfOptionalExpr> getOptionalExprList();
-
-  @NotNull
-  List<EbnfTerminal> getTerminalList();
+  List<EbnfExpr> getExprList();
 
 }

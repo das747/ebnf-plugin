@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface EbnfAlternativeExpr extends EbnfExpr {
+public interface EbnfExpr extends PsiElement {
 
   @NotNull
-  List<EbnfExpr> getExprList();
+  EbnfExpr getExpr();
 
 }

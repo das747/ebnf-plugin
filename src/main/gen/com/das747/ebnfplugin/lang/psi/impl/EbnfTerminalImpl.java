@@ -8,15 +8,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfTerminalImpl extends ASTWrapperPsiElement implements EbnfTerminal {
+public class EbnfTerminalImpl extends EbnfExprImpl implements EbnfTerminal {
 
   public EbnfTerminalImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitTerminal(this);
   }
@@ -35,7 +35,7 @@ public class EbnfTerminalImpl extends ASTWrapperPsiElement implements EbnfTermin
 
   @Override
   @NotNull
-  public PsiElement getGetValue() {
+  public PsiElement getValue() {
     return getString();
   }
 

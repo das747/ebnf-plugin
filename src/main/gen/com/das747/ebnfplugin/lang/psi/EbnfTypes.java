@@ -10,6 +10,7 @@ public interface EbnfTypes {
 
   IElementType ALTERNATIVE_EXPR = new EbnfElementType("ALTERNATIVE_EXPR");
   IElementType CONCAT_EXPR = new EbnfElementType("CONCAT_EXPR");
+  IElementType EXPR = new EbnfElementType("EXPR");
   IElementType MULTIPLE_EXPR = new EbnfElementType("MULTIPLE_EXPR");
   IElementType NON_TERMINAL = new EbnfElementType("NON_TERMINAL");
   IElementType OPTIONAL_EXPR = new EbnfElementType("OPTIONAL_EXPR");
@@ -38,6 +39,9 @@ public interface EbnfTypes {
       }
       else if (type == CONCAT_EXPR) {
         return new EbnfConcatExprImpl(node);
+      }
+      else if (type == EXPR) {
+        return new EbnfExprImpl(node);
       }
       else if (type == MULTIPLE_EXPR) {
         return new EbnfMultipleExprImpl(node);

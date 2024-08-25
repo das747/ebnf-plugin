@@ -8,15 +8,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfConcatExprImpl extends ASTWrapperPsiElement implements EbnfConcatExpr {
+public class EbnfConcatExprImpl extends EbnfExprImpl implements EbnfConcatExpr {
 
   public EbnfConcatExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitConcatExpr(this);
   }
@@ -29,38 +29,8 @@ public class EbnfConcatExprImpl extends ASTWrapperPsiElement implements EbnfConc
 
   @Override
   @NotNull
-  public List<EbnfAlternativeExpr> getAlternativeExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfAlternativeExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<EbnfConcatExpr> getConcatExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfConcatExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<EbnfMultipleExpr> getMultipleExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfMultipleExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<EbnfNonTerminal> getNonTerminalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfNonTerminal.class);
-  }
-
-  @Override
-  @NotNull
-  public List<EbnfOptionalExpr> getOptionalExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfOptionalExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<EbnfTerminal> getTerminalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfTerminal.class);
+  public List<EbnfExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfExpr.class);
   }
 
 }

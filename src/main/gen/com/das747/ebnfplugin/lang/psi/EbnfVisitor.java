@@ -8,23 +8,27 @@ import com.intellij.psi.PsiElement;
 public class EbnfVisitor extends PsiElementVisitor {
 
   public void visitAlternativeExpr(@NotNull EbnfAlternativeExpr o) {
-    visitPsiElement(o);
+    visitExpr(o);
   }
 
   public void visitConcatExpr(@NotNull EbnfConcatExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitExpr(@NotNull EbnfExpr o) {
     visitPsiElement(o);
   }
 
   public void visitMultipleExpr(@NotNull EbnfMultipleExpr o) {
-    visitPsiElement(o);
+    visitExpr(o);
   }
 
   public void visitNonTerminal(@NotNull EbnfNonTerminal o) {
-    visitPsiElement(o);
+    visitExpr(o);
   }
 
   public void visitOptionalExpr(@NotNull EbnfOptionalExpr o) {
-    visitPsiElement(o);
+    visitExpr(o);
   }
 
   public void visitRule(@NotNull EbnfRule o) {
@@ -32,7 +36,7 @@ public class EbnfVisitor extends PsiElementVisitor {
   }
 
   public void visitTerminal(@NotNull EbnfTerminal o) {
-    visitPsiElement(o);
+    visitExpr(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {

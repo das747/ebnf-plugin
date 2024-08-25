@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface EbnfTerminal extends PsiElement {
+public interface EbnfTerminal extends EbnfExpr {
 
   @NotNull
   PsiElement getString();
 
   @NotNull
-  PsiElement getGetValue();
+  PsiElement getValue();
 
 }

@@ -28,39 +28,15 @@ public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
   }
 
   @Override
-  @Nullable
-  public EbnfAlternativeExpr getAlternativeExpr() {
-    return findChildByClass(EbnfAlternativeExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public EbnfConcatExpr getConcatExpr() {
-    return findChildByClass(EbnfConcatExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public EbnfMultipleExpr getMultipleExpr() {
-    return findChildByClass(EbnfMultipleExpr.class);
-  }
-
-  @Override
   @NotNull
-  public List<EbnfNonTerminal> getNonTerminalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfNonTerminal.class);
+  public List<EbnfExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfExpr.class);
   }
 
   @Override
   @Nullable
-  public EbnfOptionalExpr getOptionalExpr() {
-    return findChildByClass(EbnfOptionalExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public EbnfTerminal getTerminal() {
-    return findChildByClass(EbnfTerminal.class);
+  public List<EbnfExpr> getDefenition() {
+    return getExprList();
   }
 
 }
