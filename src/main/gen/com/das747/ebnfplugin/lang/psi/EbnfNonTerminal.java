@@ -10,4 +10,7 @@ public interface EbnfNonTerminal extends PsiElement {
   @NotNull
   PsiElement getId();
 
+  @NotNull
+  PsiElement getGetId();
+
 }

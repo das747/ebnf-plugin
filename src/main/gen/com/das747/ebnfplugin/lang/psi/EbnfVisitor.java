@@ -7,19 +7,23 @@ import com.intellij.psi.PsiElement;
 
 public class EbnfVisitor extends PsiElementVisitor {
 
-  public void visitAlternative(@NotNull EbnfAlternative o) {
+  public void visitAlternativeExpr(@NotNull EbnfAlternativeExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitConcat(@NotNull EbnfConcat o) {
+  public void visitConcatExpr(@NotNull EbnfConcatExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitGroup(@NotNull EbnfGroup o) {
+  public void visitMultipleExpr(@NotNull EbnfMultipleExpr o) {
     visitPsiElement(o);
   }
 
   public void visitNonTerminal(@NotNull EbnfNonTerminal o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOptionalExpr(@NotNull EbnfOptionalExpr o) {
     visitPsiElement(o);
   }
 
@@ -28,14 +32,6 @@ public class EbnfVisitor extends PsiElementVisitor {
   }
 
   public void visitTerminal(@NotNull EbnfTerminal o) {
-    visitPsiElement(o);
-  }
-
-  public void visitZeroOrMore(@NotNull EbnfZeroOrMore o) {
-    visitPsiElement(o);
-  }
-
-  public void visitZeroOrOne(@NotNull EbnfZeroOrOne o) {
     visitPsiElement(o);
   }
 

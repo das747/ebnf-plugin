@@ -8,9 +8,21 @@ import com.intellij.psi.PsiElement;
 public interface EbnfRule extends PsiElement {
 
   @Nullable
-  EbnfAlternative getAlternative();
+  EbnfAlternativeExpr getAlternativeExpr();
+
+  @Nullable
+  EbnfConcatExpr getConcatExpr();
+
+  @Nullable
+  EbnfMultipleExpr getMultipleExpr();
 
   @NotNull
-  EbnfNonTerminal getNonTerminal();
+  List<EbnfNonTerminal> getNonTerminalList();
+
+  @Nullable
+  EbnfOptionalExpr getOptionalExpr();
+
+  @Nullable
+  EbnfTerminal getTerminal();
 
 }

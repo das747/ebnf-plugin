@@ -33,4 +33,10 @@ public class EbnfTerminalImpl extends ASTWrapperPsiElement implements EbnfTermin
     return findNotNullChildByType(STRING);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getGetValue() {
+    return getString();
+  }
+
 }

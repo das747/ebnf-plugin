@@ -10,4 +10,7 @@ public interface EbnfTerminal extends PsiElement {
   @NotNull
   PsiElement getString();
 
+  @NotNull
+  PsiElement getGetValue();
+
 }

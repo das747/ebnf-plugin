@@ -33,15 +33,16 @@
 
 root ::= root_item *
 private root_item ::= !<<eof>> rule ';' {pin=1 recoverWhile=rule_recover}
-rule ::= non-terminal ':=' alternative {pin=2}
-alternative ::= pattern alternative_op*
+rule ::= non_terminal ':=' expr {pin=2}
 private rule_recover ::= !(';' | id ':=')
-private alternative_op ::= '|' pattern
-private pattern ::= element concat* | zeroOrMore | zeroOrOne | group
-private element ::= terminal | non-terminal
-left concat ::= pattern +
-zeroOrOne ::= '[' alternative ']'
-zeroOrMore ::= '{' alternative '}'
-group ::= '(' alternative ')'
-non-terminal ::= id
-terminal ::= string
+
+private expr ::= non_alternative_expr alternative_expr ?
+left alternative_expr ::= ('|' non_alternative_expr) +
+private non_alternative_expr ::= atom_expr concat_expr ?
+left concat_expr ::= atom_expr +
+private atom_expr ::= optional_expr | multiple_expr | group_expr | terminal | non_terminal
+optional_expr ::= '[' expr ']'
+multiple_expr ::= '{' expr '}'
+private group_expr ::= '(' expr ')'
+non_terminal ::= id { methods=[getId="/id"] }
+terminal ::= string { methods=[getValue="/string"] }

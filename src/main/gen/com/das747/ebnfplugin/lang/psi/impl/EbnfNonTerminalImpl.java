@@ -33,4 +33,10 @@ public class EbnfNonTerminalImpl extends ASTWrapperPsiElement implements EbnfNon
     return findNotNullChildByType(ID);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getGetId() {
+    return getId();
+  }
+
 }

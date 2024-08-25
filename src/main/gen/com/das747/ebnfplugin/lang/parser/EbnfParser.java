@@ -36,80 +36,126 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // pattern alternative_op*
-  public static boolean alternative(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alternative")) return false;
+  // ('|' non_alternative_expr) +
+  public static boolean alternative_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alternative_expr")) return false;
+    if (!nextTokenIs(b, OR)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, ALTERNATIVE, "<alternative>");
-    r = pattern(b, l + 1);
-    r = r && alternative_1(b, l + 1);
+    Marker m = enter_section_(b, l, _LEFT_, ALTERNATIVE_EXPR, null);
+    r = alternative_expr_0(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!alternative_expr_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "alternative_expr", c)) break;
+    }
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // alternative_op*
-  private static boolean alternative_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alternative_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!alternative_op(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "alternative_1", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // '|' pattern
-  static boolean alternative_op(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alternative_op")) return false;
-    if (!nextTokenIs(b, OR)) return false;
+  // '|' non_alternative_expr
+  private static boolean alternative_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alternative_expr_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, OR);
-    r = r && pattern(b, l + 1);
+    r = r && non_alternative_expr(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // pattern +
-  public static boolean concat(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "concat")) return false;
+  // optional_expr | multiple_expr | group_expr | terminal | non_terminal
+  static boolean atom_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atom_expr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _LEFT_, CONCAT, "<concat>");
-    r = pattern(b, l + 1);
+    r = optional_expr(b, l + 1);
+    if (!r) r = multiple_expr(b, l + 1);
+    if (!r) r = group_expr(b, l + 1);
+    if (!r) r = terminal(b, l + 1);
+    if (!r) r = non_terminal(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // atom_expr +
+  public static boolean concat_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _LEFT_, CONCAT_EXPR, "<concat expr>");
+    r = atom_expr(b, l + 1);
     while (r) {
       int c = current_position_(b);
-      if (!pattern(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "concat", c)) break;
+      if (!atom_expr(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "concat_expr", c)) break;
     }
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // terminal | non-terminal
-  static boolean element(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element")) return false;
-    if (!nextTokenIs(b, "", ID, STRING)) return false;
+  // non_alternative_expr alternative_expr ?
+  static boolean expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expr")) return false;
     boolean r;
-    r = terminal(b, l + 1);
-    if (!r) r = non_terminal(b, l + 1);
+    Marker m = enter_section_(b);
+    r = non_alternative_expr(b, l + 1);
+    r = r && expr_1(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
+  // alternative_expr ?
+  private static boolean expr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expr_1")) return false;
+    alternative_expr(b, l + 1);
+    return true;
+  }
+
   /* ********************************************************** */
-  // '(' alternative ')'
-  public static boolean group(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "group")) return false;
+  // '(' expr ')'
+  static boolean group_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "group_expr")) return false;
     if (!nextTokenIs(b, BRACE_L)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, BRACE_L);
-    r = r && alternative(b, l + 1);
+    r = r && expr(b, l + 1);
     r = r && consumeToken(b, BRACE_R);
-    exit_section_(b, m, GROUP, r);
+    exit_section_(b, m, null, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // '{' expr '}'
+  public static boolean multiple_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "multiple_expr")) return false;
+    if (!nextTokenIs(b, CURL_L)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CURL_L);
+    r = r && expr(b, l + 1);
+    r = r && consumeToken(b, CURL_R);
+    exit_section_(b, m, MULTIPLE_EXPR, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // atom_expr concat_expr ?
+  static boolean non_alternative_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "non_alternative_expr")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = atom_expr(b, l + 1);
+    r = r && non_alternative_expr_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // concat_expr ?
+  private static boolean non_alternative_expr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "non_alternative_expr_1")) return false;
+    concat_expr(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -125,39 +171,17 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // element concat* | zeroOrMore | zeroOrOne | group
-  static boolean pattern(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "pattern")) return false;
+  // '[' expr ']'
+  public static boolean optional_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "optional_expr")) return false;
+    if (!nextTokenIs(b, SQR_L)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = pattern_0(b, l + 1);
-    if (!r) r = zeroOrMore(b, l + 1);
-    if (!r) r = zeroOrOne(b, l + 1);
-    if (!r) r = group(b, l + 1);
-    exit_section_(b, m, null, r);
+    r = consumeToken(b, SQR_L);
+    r = r && expr(b, l + 1);
+    r = r && consumeToken(b, SQR_R);
+    exit_section_(b, m, OPTIONAL_EXPR, r);
     return r;
-  }
-
-  // element concat*
-  private static boolean pattern_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "pattern_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = element(b, l + 1);
-    r = r && pattern_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // concat*
-  private static boolean pattern_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "pattern_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!concat(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "pattern_0_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -197,7 +221,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // non-terminal ':=' alternative
+  // non_terminal ':=' expr
   public static boolean rule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "rule")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -206,7 +230,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
     r = non_terminal(b, l + 1);
     r = r && consumeToken(b, ASSN);
     p = r; // pin = 2
-    r = r && alternative(b, l + 1);
+    r = r && expr(b, l + 1);
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
@@ -242,34 +266,6 @@ public class EbnfParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, STRING);
     exit_section_(b, m, TERMINAL, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // '{' alternative '}'
-  public static boolean zeroOrMore(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "zeroOrMore")) return false;
-    if (!nextTokenIs(b, CURL_L)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, CURL_L);
-    r = r && alternative(b, l + 1);
-    r = r && consumeToken(b, CURL_R);
-    exit_section_(b, m, ZERO_OR_MORE, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // '[' alternative ']'
-  public static boolean zeroOrOne(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "zeroOrOne")) return false;
-    if (!nextTokenIs(b, SQR_L)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, SQR_L);
-    r = r && alternative(b, l + 1);
-    r = r && consumeToken(b, SQR_R);
-    exit_section_(b, m, ZERO_OR_ONE, r);
     return r;
   }
 

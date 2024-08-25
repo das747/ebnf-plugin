@@ -11,14 +11,14 @@ import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
+public class EbnfOptionalExprImpl extends ASTWrapperPsiElement implements EbnfOptionalExpr {
 
-  public EbnfRuleImpl(@NotNull ASTNode node) {
+  public EbnfOptionalExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull EbnfVisitor visitor) {
-    visitor.visitRule(this);
+    visitor.visitOptionalExpr(this);
   }
 
   @Override
@@ -28,21 +28,21 @@ public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
   }
 
   @Override
-  @Nullable
-  public EbnfAlternativeExpr getAlternativeExpr() {
-    return findChildByClass(EbnfAlternativeExpr.class);
+  @NotNull
+  public List<EbnfAlternativeExpr> getAlternativeExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfAlternativeExpr.class);
   }
 
   @Override
-  @Nullable
-  public EbnfConcatExpr getConcatExpr() {
-    return findChildByClass(EbnfConcatExpr.class);
+  @NotNull
+  public List<EbnfConcatExpr> getConcatExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfConcatExpr.class);
   }
 
   @Override
-  @Nullable
-  public EbnfMultipleExpr getMultipleExpr() {
-    return findChildByClass(EbnfMultipleExpr.class);
+  @NotNull
+  public List<EbnfMultipleExpr> getMultipleExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfMultipleExpr.class);
   }
 
   @Override
@@ -52,15 +52,15 @@ public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
   }
 
   @Override
-  @Nullable
-  public EbnfOptionalExpr getOptionalExpr() {
-    return findChildByClass(EbnfOptionalExpr.class);
+  @NotNull
+  public List<EbnfOptionalExpr> getOptionalExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfOptionalExpr.class);
   }
 
   @Override
-  @Nullable
-  public EbnfTerminal getTerminal() {
-    return findChildByClass(EbnfTerminal.class);
+  @NotNull
+  public List<EbnfTerminal> getTerminalList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfTerminal.class);
   }
 
 }

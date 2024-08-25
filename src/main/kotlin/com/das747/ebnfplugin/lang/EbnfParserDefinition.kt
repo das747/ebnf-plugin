@@ -1,6 +1,7 @@
 package com.das747.ebnfplugin.lang
 
 import com.das747.ebnfplugin.lang.parser.EbnfParser
+import com.das747.ebnfplugin.lang.psi.EbnfTokenSets
 import com.das747.ebnfplugin.lang.psi.EbnfTypes
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition

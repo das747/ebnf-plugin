@@ -34,5 +34,8 @@
     <lang.parserDefinition
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.lang.EbnfParserDefinition"/>
+    <lang.syntaxHighlighterFactory
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.lang.EbnfSyntaxHighlighterFactory"/>
   </extensions>
 </idea-plugin>

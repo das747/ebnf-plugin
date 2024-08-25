@@ -8,14 +8,13 @@ import com.das747.ebnfplugin.lang.psi.impl.*;
 
 public interface EbnfTypes {
 
-  IElementType ALTERNATIVE = new EbnfElementType("ALTERNATIVE");
-  IElementType CONCAT = new EbnfElementType("CONCAT");
-  IElementType GROUP = new EbnfElementType("GROUP");
+  IElementType ALTERNATIVE_EXPR = new EbnfElementType("ALTERNATIVE_EXPR");
+  IElementType CONCAT_EXPR = new EbnfElementType("CONCAT_EXPR");
+  IElementType MULTIPLE_EXPR = new EbnfElementType("MULTIPLE_EXPR");
   IElementType NON_TERMINAL = new EbnfElementType("NON_TERMINAL");
+  IElementType OPTIONAL_EXPR = new EbnfElementType("OPTIONAL_EXPR");
   IElementType RULE = new EbnfElementType("RULE");
   IElementType TERMINAL = new EbnfElementType("TERMINAL");
-  IElementType ZERO_OR_MORE = new EbnfElementType("ZERO_OR_MORE");
-  IElementType ZERO_OR_ONE = new EbnfElementType("ZERO_OR_ONE");
 
   IElementType ASSN = new EbnfTokenType(":=");
   IElementType BRACE_L = new EbnfTokenType("(");
@@ -34,29 +33,26 @@ public interface EbnfTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ALTERNATIVE) {
-        return new EbnfAlternativeImpl(node);
+      if (type == ALTERNATIVE_EXPR) {
+        return new EbnfAlternativeExprImpl(node);
       }
-      else if (type == CONCAT) {
-        return new EbnfConcatImpl(node);
+      else if (type == CONCAT_EXPR) {
+        return new EbnfConcatExprImpl(node);
       }
-      else if (type == GROUP) {
-        return new EbnfGroupImpl(node);
+      else if (type == MULTIPLE_EXPR) {
+        return new EbnfMultipleExprImpl(node);
       }
       else if (type == NON_TERMINAL) {
         return new EbnfNonTerminalImpl(node);
+      }
+      else if (type == OPTIONAL_EXPR) {
+        return new EbnfOptionalExprImpl(node);
       }
       else if (type == RULE) {
         return new EbnfRuleImpl(node);
       }
       else if (type == TERMINAL) {
         return new EbnfTerminalImpl(node);
-      }
-      else if (type == ZERO_OR_MORE) {
-        return new EbnfZeroOrMoreImpl(node);
-      }
-      else if (type == ZERO_OR_ONE) {
-        return new EbnfZeroOrOneImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }
