@@ -27,4 +27,10 @@ public class EbnfNonTerminalImpl extends EbnfExprImpl implements EbnfNonTerminal
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
+  }
+
 }

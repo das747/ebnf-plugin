@@ -15,6 +15,10 @@ public class EbnfVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitDefinition(@NotNull EbnfDefinition o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpr(@NotNull EbnfExpr o) {
     visitPsiElement(o);
   }
@@ -32,6 +36,10 @@ public class EbnfVisitor extends PsiElementVisitor {
   }
 
   public void visitRule(@NotNull EbnfRule o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRuleName(@NotNull EbnfRuleName o) {
     visitPsiElement(o);
   }
 

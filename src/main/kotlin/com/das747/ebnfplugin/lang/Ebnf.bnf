@@ -29,20 +29,18 @@
      id='regexp:\p{Alpha}\w*'
      string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
   ]
-
   extends(".*_expr")=expr
 }
 
 root ::= root_item *
 private root_item ::= !<<eof>> rule ';' {pin=1 recoverWhile=rule_recover}
-rule ::= non_terminal ':=' expr {
+rule ::= rule_name ':=' definition {
+  methods=["\rule_name" "\defenition"]
   pin=2
-  methods=[
-    name="/non_terminal"
-    defenition="/expr"
-  ]}
+}
 private rule_recover ::= !(';' | id ':=')
-
+rule_name ::= id
+definition ::= expr
 expr ::= non_alternative_expr alternative_expr ?
 left alternative_expr ::= ('|' non_alternative_expr) +
 private non_alternative_expr ::= atom_expr concat_expr ?
@@ -51,5 +49,5 @@ private atom_expr ::= optional_expr | multiple_expr | group_expr | terminal | no
 optional_expr ::= '[' expr ']'
 multiple_expr ::= '{' expr '}'
 private group_expr ::= '(' expr ')'
-non_terminal ::= id { methods=[id="/id"] extends=expr}
+non_terminal ::= id { methods=["/id"] extends=expr}
 terminal ::= string { methods=[value="/string"] extends=expr}

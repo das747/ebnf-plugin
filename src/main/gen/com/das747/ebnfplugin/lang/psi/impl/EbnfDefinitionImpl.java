@@ -11,14 +11,14 @@ import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
+public class EbnfDefinitionImpl extends ASTWrapperPsiElement implements EbnfDefinition {
 
-  public EbnfRuleImpl(@NotNull ASTNode node) {
+  public EbnfDefinitionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull EbnfVisitor visitor) {
-    visitor.visitRule(this);
+    visitor.visitDefinition(this);
   }
 
   @Override
@@ -28,15 +28,9 @@ public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
   }
 
   @Override
-  @Nullable
-  public EbnfDefinition getDefinition() {
-    return findChildByClass(EbnfDefinition.class);
-  }
-
-  @Override
   @NotNull
-  public EbnfRuleName getRuleName() {
-    return findNotNullChildByClass(EbnfRuleName.class);
+  public EbnfExpr getExpr() {
+    return findNotNullChildByClass(EbnfExpr.class);
   }
 
 }
