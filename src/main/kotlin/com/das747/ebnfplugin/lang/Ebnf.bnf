@@ -36,6 +36,8 @@ root ::= root_item *
 private root_item ::= !<<eof>> rule ';' {pin=1 recoverWhile=rule_recover}
 rule ::= non_terminal ':=' expr {
   pin=2
+  mixin="com.das747.ebnfplugin.lang.psi.impl.EbnfRuleImplMixin"
+  implements="com.das747.ebnfplugin.lang.psi.EbnfNamedElement"
 }
 private rule_recover ::= !(';' | id ':=')
 expr ::= non_alternative_expr alternative_expr ?
@@ -46,5 +48,9 @@ private atom_expr ::= optional_expr | multiple_expr | group_expr | terminal | no
 optional_expr ::= '[' expr ']'
 multiple_expr ::= '{' expr '}'
 private group_expr ::= '(' expr ')'
-non_terminal ::= id { methods=["/id"] extends=expr}
+non_terminal ::= id {
+  methods=["/id"]
+  extends=expr
+  mixin="com.das747.ebnfplugin.lang.psi.impl.EbnfNonTerminalImplMixin"
+}
 terminal ::= string { methods=[value="/string"] extends=expr}

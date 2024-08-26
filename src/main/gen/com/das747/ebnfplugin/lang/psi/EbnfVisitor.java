@@ -32,11 +32,15 @@ public class EbnfVisitor extends PsiElementVisitor {
   }
 
   public void visitRule(@NotNull EbnfRule o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitTerminal(@NotNull EbnfTerminal o) {
     visitExpr(o);
+  }
+
+  public void visitNamedElement(@NotNull EbnfNamedElement o) {
+    visitPsiElement(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {

@@ -8,10 +8,9 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
+public class EbnfRuleImpl extends EbnfRuleImplMixin implements EbnfRule {
 
   public EbnfRuleImpl(@NotNull ASTNode node) {
     super(node);
