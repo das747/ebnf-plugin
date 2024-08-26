@@ -37,5 +37,8 @@
     <lang.syntaxHighlighterFactory
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.lang.EbnfSyntaxHighlighterFactory"/>
+    <annotator
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.lang.EbnfAnnotator"/>
   </extensions>
 </idea-plugin>

@@ -16,7 +16,7 @@ val BRACKET = createTextAttributesKey("EBNF_BRACKET", DefaultLanguageHighlighter
 val ALTERNATIVE =
     createTextAttributesKey("EBNF_ALTERNATIVE", DefaultLanguageHighlighterColors.OPERATION_SIGN)
 val NON_TERMINAL =
-    createTextAttributesKey("EBNF_NON_TERMINAL", DefaultLanguageHighlighterColors.CONSTANT)
+    createTextAttributesKey("EBNF_NON_TERMINAL", DefaultLanguageHighlighterColors.IDENTIFIER)
 val TERMINAL = createTextAttributesKey("EBNF_TERMINAL", DefaultLanguageHighlighterColors.STRING)
 val BAD_CHARACTER = createTextAttributesKey("EBNF_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER)
 val SEMICOLON = createTextAttributesKey("EBNF_SEMICOLON", DefaultLanguageHighlighterColors.SEMICOLON)

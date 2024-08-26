@@ -28,15 +28,9 @@ public class EbnfRuleImpl extends ASTWrapperPsiElement implements EbnfRule {
   }
 
   @Override
-  @Nullable
-  public EbnfDefinition getDefinition() {
-    return findChildByClass(EbnfDefinition.class);
-  }
-
-  @Override
   @NotNull
-  public EbnfRuleName getRuleName() {
-    return findNotNullChildByClass(EbnfRuleName.class);
+  public List<EbnfExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfExpr.class);
   }
 
 }

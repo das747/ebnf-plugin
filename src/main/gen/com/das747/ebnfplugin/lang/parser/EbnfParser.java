@@ -98,17 +98,6 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expr
-  public static boolean definition(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "definition")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, DEFINITION, "<definition>");
-    r = expr(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
   // non_alternative_expr alternative_expr ?
   public static boolean expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr")) return false;
@@ -237,30 +226,18 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // rule_name ':=' definition
+  // non_terminal ':=' expr
   public static boolean rule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "rule")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, RULE, null);
-    r = rule_name(b, l + 1);
+    r = non_terminal(b, l + 1);
     r = r && consumeToken(b, ASSN);
     p = r; // pin = 2
-    r = r && definition(b, l + 1);
+    r = r && expr(b, l + 1);
     exit_section_(b, l, m, r, p, null);
     return r || p;
-  }
-
-  /* ********************************************************** */
-  // id
-  public static boolean rule_name(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "rule_name")) return false;
-    if (!nextTokenIs(b, ID)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, ID);
-    exit_section_(b, m, RULE_NAME, r);
-    return r;
   }
 
   /* ********************************************************** */

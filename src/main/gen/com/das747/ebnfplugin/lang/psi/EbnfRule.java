@@ -7,10 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface EbnfRule extends PsiElement {
 
-  @Nullable
-  EbnfDefinition getDefinition();
-
   @NotNull
-  EbnfRuleName getRuleName();
+  List<EbnfExpr> getExprList();
 
 }

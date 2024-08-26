@@ -34,13 +34,10 @@
 
 root ::= root_item *
 private root_item ::= !<<eof>> rule ';' {pin=1 recoverWhile=rule_recover}
-rule ::= rule_name ':=' definition {
-  methods=["\rule_name" "\defenition"]
+rule ::= non_terminal ':=' expr {
   pin=2
 }
 private rule_recover ::= !(';' | id ':=')
-rule_name ::= id
-definition ::= expr
 expr ::= non_alternative_expr alternative_expr ?
 left alternative_expr ::= ('|' non_alternative_expr) +
 private non_alternative_expr ::= atom_expr concat_expr ?

@@ -10,13 +10,11 @@ public interface EbnfTypes {
 
   IElementType ALTERNATIVE_EXPR = new EbnfElementType("ALTERNATIVE_EXPR");
   IElementType CONCAT_EXPR = new EbnfElementType("CONCAT_EXPR");
-  IElementType DEFINITION = new EbnfElementType("DEFINITION");
   IElementType EXPR = new EbnfElementType("EXPR");
   IElementType MULTIPLE_EXPR = new EbnfElementType("MULTIPLE_EXPR");
   IElementType NON_TERMINAL = new EbnfElementType("NON_TERMINAL");
   IElementType OPTIONAL_EXPR = new EbnfElementType("OPTIONAL_EXPR");
   IElementType RULE = new EbnfElementType("RULE");
-  IElementType RULE_NAME = new EbnfElementType("RULE_NAME");
   IElementType TERMINAL = new EbnfElementType("TERMINAL");
 
   IElementType ASSN = new EbnfTokenType(":=");
@@ -42,9 +40,6 @@ public interface EbnfTypes {
       else if (type == CONCAT_EXPR) {
         return new EbnfConcatExprImpl(node);
       }
-      else if (type == DEFINITION) {
-        return new EbnfDefinitionImpl(node);
-      }
       else if (type == EXPR) {
         return new EbnfExprImpl(node);
       }
@@ -59,9 +54,6 @@ public interface EbnfTypes {
       }
       else if (type == RULE) {
         return new EbnfRuleImpl(node);
-      }
-      else if (type == RULE_NAME) {
-        return new EbnfRuleNameImpl(node);
       }
       else if (type == TERMINAL) {
         return new EbnfTerminalImpl(node);
