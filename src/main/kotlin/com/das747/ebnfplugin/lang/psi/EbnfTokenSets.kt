@@ -13,4 +13,5 @@ object EbnfTokenSets {
         EbnfTypes.BRACE_L,
         EbnfTypes.BRACE_R
     )
+    val IDENTIFIERS = TokenSet.create(EbnfTypes.ID)
 }
