@@ -4,6 +4,7 @@ import com.das747.ebnfplugin.lang.psi.EbnfElementFactory
 import com.das747.ebnfplugin.lang.psi.EbnfPsiImplUtil
 import com.das747.ebnfplugin.lang.psi.EbnfRule
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 
 abstract class EbnfRuleImplMixin(node: ASTNode): EbnfRule, EbnfNamedElementImpl(node) {
