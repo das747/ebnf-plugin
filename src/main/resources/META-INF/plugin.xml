@@ -46,5 +46,7 @@
     <lang.findUsagesProvider
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.lang.EbnfFindUsagesProvider"/>
+    <gotoSymbolContributor
+      implementation="com.das747.ebnfplugin.lang.EbnfChooseByNameContributor"/>
   </extensions>
 </idea-plugin>
