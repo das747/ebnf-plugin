@@ -48,5 +48,8 @@
       implementationClass="com.das747.ebnfplugin.lang.EbnfFindUsagesProvider"/>
     <gotoSymbolContributor
       implementation="com.das747.ebnfplugin.lang.EbnfChooseByNameContributor"/>
+    <lang.psiStructureViewFactory
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.EbnfStructureViewFactory"/>
   </extensions>
 </idea-plugin>
