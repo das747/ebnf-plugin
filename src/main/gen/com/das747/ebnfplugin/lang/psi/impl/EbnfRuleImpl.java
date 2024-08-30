@@ -27,9 +27,15 @@ public class EbnfRuleImpl extends EbnfRuleImplMixin implements EbnfRule {
   }
 
   @Override
+  @Nullable
+  public EbnfExpr getExpr() {
+    return findChildByClass(EbnfExpr.class);
+  }
+
+  @Override
   @NotNull
-  public List<EbnfExpr> getExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfExpr.class);
+  public EbnfNonTerminal getNonTerminal() {
+    return findNotNullChildByClass(EbnfNonTerminal.class);
   }
 
 }

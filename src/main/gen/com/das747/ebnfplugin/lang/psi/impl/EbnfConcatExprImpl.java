@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfConcatExprImpl extends EbnfExprImpl implements EbnfConcatExpr {
+public class EbnfConcatExprImpl extends EbnfTreeNodeImplMixin implements EbnfConcatExpr {
 
   public EbnfConcatExprImpl(@NotNull ASTNode node) {
     super(node);
@@ -31,6 +31,12 @@ public class EbnfConcatExprImpl extends EbnfExprImpl implements EbnfConcatExpr {
   @NotNull
   public List<EbnfExpr> getExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfExpr.class);
+  }
+
+  @Override
+  @NotNull
+  public List<EbnfNonTerminal> getNonTerminalList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfNonTerminal.class);
   }
 
 }

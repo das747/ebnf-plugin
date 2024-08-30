@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfMultipleExprImpl extends EbnfExprImpl implements EbnfMultipleExpr {
+public class EbnfMultipleExprImpl extends EbnfTreeNodeImplMixin implements EbnfMultipleExpr {
 
   public EbnfMultipleExprImpl(@NotNull ASTNode node) {
     super(node);
@@ -25,6 +25,12 @@ public class EbnfMultipleExprImpl extends EbnfExprImpl implements EbnfMultipleEx
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof EbnfVisitor) accept((EbnfVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public EbnfExpr getExpr() {
+    return findNotNullChildByClass(EbnfExpr.class);
   }
 
 }

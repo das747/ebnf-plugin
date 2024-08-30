@@ -51,5 +51,7 @@
     <lang.psiStructureViewFactory
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.ide.EbnfStructureViewFactory"/>
+    <iconProvider
+      implementation="com.das747.ebnfplugin.lang.EbnfIconProvider"/>
   </extensions>
 </idea-plugin>

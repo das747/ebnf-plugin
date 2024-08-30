@@ -4,7 +4,11 @@ package com.das747.ebnfplugin.lang.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode;
 
-public interface EbnfOptionalExpr extends EbnfExpr {
+public interface EbnfOptionalExpr extends EbnfExpr, EbnfTreeNode {
+
+  @NotNull
+  EbnfExpr getExpr();
 
 }

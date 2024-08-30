@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface EbnfExpr extends PsiElement {
 
-  @NotNull
+  @Nullable
   EbnfExpr getExpr();
+
+  @Nullable
+  EbnfNonTerminal getNonTerminal();
 
 }

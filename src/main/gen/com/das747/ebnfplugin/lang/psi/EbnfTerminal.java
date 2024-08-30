@@ -4,13 +4,11 @@ package com.das747.ebnfplugin.lang.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.das747.ebnfplugin.lang.psi.tree.EbnfLeafNode;
 
-public interface EbnfTerminal extends EbnfExpr {
+public interface EbnfTerminal extends EbnfExpr, EbnfLeafNode {
 
   @NotNull
   PsiElement getString();
-
-  @NotNull
-  PsiElement getValue();
 
 }

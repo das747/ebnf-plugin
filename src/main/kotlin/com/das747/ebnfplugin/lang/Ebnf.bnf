@@ -29,7 +29,9 @@
      id='regexp:\p{Alpha}\w*'
      string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
   ]
+  implements(".*_expr")="com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode"
   extends(".*_expr")=expr
+  mixin(".*_expr")="com.das747.ebnfplugin.lang.psi.impl.EbnfTreeNodeImplMixin"
 }
 
 root ::= root_item *
@@ -38,6 +40,7 @@ rule ::= non_terminal ':=' expr {
   pin=2
   mixin="com.das747.ebnfplugin.lang.psi.impl.EbnfRuleImplMixin"
   implements="com.das747.ebnfplugin.lang.psi.EbnfNamedElement"
+  methods = [getDefinedNonTerminal]
 }
 private rule_recover ::= !(';' | id ':=')
 expr ::= non_alternative_expr alternative_expr ?
@@ -51,6 +54,11 @@ private group_expr ::= '(' expr ')'
 non_terminal ::= id {
   methods=["/id"]
   extends=expr
+  implements="com.das747.ebnfplugin.lang.psi.tree.EbnfLeafNode"
   mixin="com.das747.ebnfplugin.lang.psi.impl.EbnfNonTerminalImplMixin"
 }
-terminal ::= string { methods=[value="/string"] extends=expr}
+terminal ::= string {
+  extends=expr
+  implements="com.das747.ebnfplugin.lang.psi.tree.EbnfLeafNode"
+  mixin="com.das747.ebnfplugin.lang.psi.impl.EbnfTerminalImplMixin"
+}

@@ -10,7 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfTerminalImpl extends EbnfExprImpl implements EbnfTerminal {
+public class EbnfTerminalImpl extends EbnfTerminalImplMixin implements EbnfTerminal {
 
   public EbnfTerminalImpl(@NotNull ASTNode node) {
     super(node);
@@ -31,12 +31,6 @@ public class EbnfTerminalImpl extends EbnfExprImpl implements EbnfTerminal {
   @NotNull
   public PsiElement getString() {
     return findNotNullChildByType(STRING);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getValue() {
-    return getString();
   }
 
 }

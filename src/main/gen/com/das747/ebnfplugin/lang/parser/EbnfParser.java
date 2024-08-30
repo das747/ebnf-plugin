@@ -37,7 +37,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
     create_token_set_(ALTERNATIVE_EXPR, CONCAT_EXPR, EXPR, MULTIPLE_EXPR,
-      NON_TERMINAL, OPTIONAL_EXPR, TERMINAL),
+      OPTIONAL_EXPR, TERMINAL),
   };
 
   /* ********************************************************** */
