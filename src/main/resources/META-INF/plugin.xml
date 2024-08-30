@@ -53,5 +53,8 @@
       implementationClass="com.das747.ebnfplugin.ide.EbnfStructureViewFactory"/>
     <iconProvider
       implementation="com.das747.ebnfplugin.lang.EbnfIconProvider"/>
+    <lang.refactoringSupport
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.EbnfRefactoringSupportProvider"/>
   </extensions>
 </idea-plugin>
