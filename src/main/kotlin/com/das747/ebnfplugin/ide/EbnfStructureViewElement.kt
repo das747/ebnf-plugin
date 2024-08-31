@@ -3,6 +3,7 @@ package com.das747.ebnfplugin.ide
 import com.das747.ebnfplugin.lang.EbnfFile
 import com.das747.ebnfplugin.lang.psi.EbnfPsiImplUtil
 import com.das747.ebnfplugin.lang.psi.EbnfRule
+import com.das747.ebnfplugin.lang.psi.impl.EbnfExprImpl
 import com.das747.ebnfplugin.lang.psi.impl.EbnfExprNodeImpl
 import com.das747.ebnfplugin.lang.psi.impl.EbnfRuleImpl
 import com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode
@@ -31,7 +32,7 @@ class EbnfStructureViewElement(private val element: NavigatablePsiElement) : Str
 
             is EbnfRule -> {
                 EbnfPsiImplUtil.getDefinition(element)
-                    ?.let { arrayOf(EbnfStructureViewElement(it as EbnfExprNodeImpl)) }
+                    ?.let { arrayOf(EbnfStructureViewElement(it as EbnfExprImpl)) }
                     ?: emptyArray()
             }
 

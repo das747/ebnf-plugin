@@ -40,7 +40,7 @@ class EbnfFoldingBuilder : FoldingBuilderEx() {
             is EbnfNonTerminal -> {
                 val rules = findRulesByName(psiElement.project, psiElement.value)
                 if (rules.size == 1) {
-                    EbnfPsiImplUtil.getDefinition(rules[0])?.text
+                    "( ${EbnfPsiImplUtil.getDefinition(rules[0])?.text} )"
                 } else {
                     StringUtil.THREE_DOTS
                 }
