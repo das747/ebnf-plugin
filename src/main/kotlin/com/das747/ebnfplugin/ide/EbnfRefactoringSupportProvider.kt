@@ -11,4 +11,8 @@ class EbnfRefactoringSupportProvider: RefactoringSupportProvider() {
     ): Boolean {
         return element is EbnfRule
     }
+
+    override fun isSafeDeleteAvailable(element: PsiElement): Boolean {
+        return element is EbnfRule
+    }
 }

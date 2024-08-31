@@ -41,5 +41,4 @@ abstract class EbnfRuleImplMixin(node: ASTNode): EbnfRule, EbnfNamedElementImpl(
 
         }
     }
-
 }
