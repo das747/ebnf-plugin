@@ -9,27 +9,30 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiTreeUtil
 
-fun findDefinedNonTerminals(project: Project): List<EbnfNonTerminal> {
-    val result = mutableListOf<EbnfNonTerminal>()
+fun findAllRules(project: Project): List<EbnfRule> {
+    val result = mutableListOf<EbnfRule>()
     val virtualFiles = FileTypeIndex.getFiles(EbnfFileType, GlobalSearchScope.allScope(project))
     virtualFiles.forEach { file ->
         PsiManager.getInstance(project).findFile(file)?.let { ebnfFile ->
             PsiTreeUtil.getChildrenOfType(ebnfFile, EbnfRule::class.java)?.let { rules ->
-                result.addAll(rules.mapNotNull { EbnfPsiImplUtil.getDefinedNonTerminal(it) })
+                result.addAll(rules)
             }
         }
     }
     return result
 }
 
-fun findNonTerminal(project: Project, name: String): List<EbnfNonTerminal> {
-    val result = mutableListOf<EbnfNonTerminal>()
+fun findAllDefinedNonTerminals(project: Project): List<EbnfNonTerminal> {
+    return findAllRules(project).mapNotNull { EbnfPsiImplUtil.getDefinedNonTerminal(it) }
+}
+
+fun findRulesByName(project: Project, name: String): List<EbnfRule> {
+    val result = mutableListOf<EbnfRule>()
     val virtualFiles = FileTypeIndex.getFiles(EbnfFileType, GlobalSearchScope.allScope(project))
     virtualFiles.forEach { file ->
         PsiManager.getInstance(project).findFile(file)?.let { ebnfFile ->
             PsiTreeUtil.getChildrenOfType(ebnfFile, EbnfRule::class.java)?.let { rules ->
-                result.addAll(rules.mapNotNull { EbnfPsiImplUtil.getDefinedNonTerminal(it) }
-                    .filter { it.id.text == name })
+                result.addAll(rules.filter { EbnfPsiImplUtil.getDefinedNonTerminal(it)?.value == name })
             }
         }
     }

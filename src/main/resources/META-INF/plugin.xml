@@ -56,5 +56,8 @@
     <lang.refactoringSupport
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.ide.EbnfRefactoringSupportProvider"/>
+    <lang.foldingBuilder
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.EbnfFoldingBuilder"/>
   </extensions>
 </idea-plugin>

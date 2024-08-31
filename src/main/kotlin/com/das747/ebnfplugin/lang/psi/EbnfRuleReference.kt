@@ -1,11 +1,9 @@
 package com.das747.ebnfplugin.lang.psi
 
 import com.das747.ebnfplugin.lang.EbnfIcons
-import com.das747.ebnfplugin.lang.findDefinedNonTerminals
-import com.das747.ebnfplugin.lang.findNonTerminal
-import com.intellij.codeInsight.lookup.LookupElement
+import com.das747.ebnfplugin.lang.findAllRules
+import com.das747.ebnfplugin.lang.findRulesByName
 import com.intellij.codeInsight.lookup.LookupElementBuilder
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementResolveResult
 import com.intellij.psi.PsiPolyVariantReference
@@ -24,14 +22,13 @@ class EbnfRuleReference(element: PsiElement) :
 
     override fun multiResolve(incompleteCode: Boolean): Array<ResolveResult> {
         val project = myElement.project
-        val definedRules = findNonTerminal(project, key)
-        return definedRules.mapNotNull { it.parent }.map { PsiElementResolveResult(it) }
-            .toTypedArray()
+        val definedRules = findRulesByName(project, key)
+        return definedRules.map { PsiElementResolveResult(it) }.toTypedArray()
     }
 
     override fun getVariants(): Array<Any> {
-        return findDefinedNonTerminals(myElement.project).map {
-            LookupElementBuilder.create(it.parent as EbnfRule).withIcon(EbnfIcons.FILE)
+        return findAllRules(myElement.project).map {
+            LookupElementBuilder.create(it).withIcon(EbnfIcons.FILE)
                 .withTypeText(it.containingFile.name)
         }.toTypedArray()
     }

@@ -13,7 +13,7 @@ class EbnfChooseByNameContributor: ChooseByNameContributorEx {
         scope: GlobalSearchScope,
         filter: IdFilter?
     ) {
-        findDefinedNonTerminals(scope.project!!).map { it.text }.forEach { processor.process(it) }
+        findAllDefinedNonTerminals(scope.project!!).map { it.text }.forEach { processor.process(it) }
     }
 
     override fun processElementsWithName(
@@ -21,6 +21,6 @@ class EbnfChooseByNameContributor: ChooseByNameContributorEx {
         processor: Processor<in NavigationItem>,
         parameters: FindSymbolParameters
     ) {
-        findNonTerminal(parameters.project, name).forEach { processor.process(it as NavigationItem)}
+        findRulesByName(parameters.project, name).forEach { processor.process(it as NavigationItem)}
     }
 }
