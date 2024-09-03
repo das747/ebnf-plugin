@@ -31,12 +31,14 @@ class EbnfFormattingModelBuilder : FormattingModelBuilder {
         settings.getCommonSettings(EbnfLanguage)
         return FormattingModelProvider.createFormattingModelForPsiFile(
             formattingContext.containingFile,
-            EbnfBlock(
+            createEbnfBlock(
                 formattingContext.node,
-                Wrap.createWrap(WrapType.NONE, false),
-                Alignment.createAlignment(),
-                Indent.getNoneIndent(),
-                createSpacingBuilder(settings)
+                EbnfBlockAttributes(
+                    Wrap.createWrap(WrapType.NONE, false),
+                    Alignment.createAlignment(),
+                    Indent.getNoneIndent(),
+                    createSpacingBuilder(settings)
+                )
             ),
             settings
         )
