@@ -1,7 +1,6 @@
 package com.das747.ebnfplugin.lang
 
 import com.das747.ebnfplugin.lang.psi.EbnfNonTerminal
-import com.das747.ebnfplugin.lang.psi.EbnfPsiImplUtil
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
@@ -15,7 +14,7 @@ class EbnfAnnotator : Annotator {
             return
         }
 
-        if (EbnfPsiImplUtil.checkIfLhs(element)) {
+        if (element.checkIfLhs()) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .range(element.textRange)
                 .textAttributes(DefaultLanguageHighlighterColors.FUNCTION_DECLARATION)

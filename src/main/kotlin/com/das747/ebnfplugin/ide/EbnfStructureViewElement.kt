@@ -1,7 +1,7 @@
 package com.das747.ebnfplugin.ide
 
 import com.das747.ebnfplugin.lang.EbnfFile
-import com.das747.ebnfplugin.lang.psi.EbnfPsiImplUtil
+import com.das747.ebnfplugin.lang.getDefinition
 import com.das747.ebnfplugin.lang.psi.EbnfRule
 import com.das747.ebnfplugin.lang.psi.impl.EbnfExprImpl
 import com.das747.ebnfplugin.lang.psi.impl.EbnfExprNodeImpl
@@ -31,7 +31,7 @@ class EbnfStructureViewElement(private val element: NavigatablePsiElement) : Str
             }
 
             is EbnfRule -> {
-                EbnfPsiImplUtil.getDefinition(element)
+                element.getDefinition()
                     ?.let { arrayOf(EbnfStructureViewElement(it as EbnfExprImpl)) }
                     ?: emptyArray()
             }

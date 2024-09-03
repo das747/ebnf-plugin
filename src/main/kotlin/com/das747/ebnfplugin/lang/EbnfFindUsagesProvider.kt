@@ -1,7 +1,6 @@
 package com.das747.ebnfplugin.lang
 
 import com.das747.ebnfplugin.lang.psi.EbnfNamedElement
-import com.das747.ebnfplugin.lang.psi.EbnfPsiImplUtil
 import com.das747.ebnfplugin.lang.psi.EbnfRule
 import com.das747.ebnfplugin.lang.psi.EbnfTokenSets
 import com.intellij.lang.cacheBuilder.DefaultWordsScanner

@@ -1,14 +1,14 @@
 package com.das747.ebnfplugin.ide
 
+import com.das747.ebnfplugin.lang.checkIfLhs
 import com.das747.ebnfplugin.lang.findRulesByName
+import com.das747.ebnfplugin.lang.getDefinition
 import com.das747.ebnfplugin.lang.psi.EbnfNonTerminal
-import com.das747.ebnfplugin.lang.psi.EbnfPsiImplUtil
 import com.das747.ebnfplugin.lang.psi.EbnfRecursiveVisitor
 import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
-import com.intellij.openapi.editor.FoldingGroup
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.psi.PsiElement
 
@@ -23,7 +23,7 @@ class EbnfFoldingBuilder : FoldingBuilderEx() {
             override fun visitNonTerminal(o: EbnfNonTerminal) {
                 super.visitNonTerminal(o)
 
-                if (!EbnfPsiImplUtil.checkIfLhs(o)) {
+                if (!o.checkIfLhs()) {
                     val rules = findRulesByName(o.project, o.value)
                     if (rules.size == 1) {
                         descriptors.add(FoldingDescriptor(o.node, o.textRange, null, rules.toSet()))
@@ -40,7 +40,7 @@ class EbnfFoldingBuilder : FoldingBuilderEx() {
             is EbnfNonTerminal -> {
                 val rules = findRulesByName(psiElement.project, psiElement.value)
                 if (rules.size == 1) {
-                    "( ${EbnfPsiImplUtil.getDefinition(rules[0])?.text} )"
+                    "( ${rules[0].getDefinition()?.text} )"
                 } else {
                     StringUtil.THREE_DOTS
                 }
