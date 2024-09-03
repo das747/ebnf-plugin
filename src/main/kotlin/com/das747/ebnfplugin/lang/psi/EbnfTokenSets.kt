@@ -1,17 +1,29 @@
 package com.das747.ebnfplugin.lang.psi
 
+import com.das747.ebnfplugin.lang.psi.EbnfTypes.*
 import com.intellij.psi.tree.TokenSet
 
 object EbnfTokenSets {
-    val COMMENTS = TokenSet.create(EbnfTypes.COMMENT)
-    val STRING_LITERALS = TokenSet.create(EbnfTypes.STRING)
+    val COMMENTS = TokenSet.create(COMMENT)
+    val STRING_LITERALS = TokenSet.create(STRING)
     val BRACKETS = TokenSet.create(
-        EbnfTypes.SQR_L,
-        EbnfTypes.SQR_R,
-        EbnfTypes.CURL_L,
-        EbnfTypes.CURL_R,
-        EbnfTypes.BRACE_L,
-        EbnfTypes.BRACE_R
+        SQR_L,
+        SQR_R,
+        CURL_L,
+        CURL_R,
+        BRACE_L,
+        BRACE_R
     )
-    val IDENTIFIERS = TokenSet.create(EbnfTypes.ID)
+    val IDENTIFIERS = TokenSet.create(ID)
+    val ATOM_EXPRESSIONS = TokenSet.create(
+        NON_TERMINAL,
+        TERMINAL,
+        CONCAT_EXPR,
+        ALTERNATIVE_EXPR,
+        MULTIPLE_EXPR,
+        OPTIONAL_EXPR,
+    )
+
+    val SUM_EXPRESSIONS = TokenSet.create(ALTERNATIVE_EXPR, CONCAT_EXPR)
+    val MODIFIER_EXPRESSIONS = TokenSet.create(OPTIONAL_EXPR, MULTIPLE_EXPR)
 }

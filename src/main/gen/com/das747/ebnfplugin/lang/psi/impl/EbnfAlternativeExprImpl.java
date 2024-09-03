@@ -33,10 +33,4 @@ public class EbnfAlternativeExprImpl extends EbnfTreeNodeImplMixin implements Eb
     return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfExpr.class);
   }
 
-  @Override
-  @NotNull
-  public List<EbnfNonTerminal> getNonTerminalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfNonTerminal.class);
-  }
-
 }

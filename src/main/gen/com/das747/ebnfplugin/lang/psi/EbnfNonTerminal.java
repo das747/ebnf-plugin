@@ -6,7 +6,7 @@ import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import com.das747.ebnfplugin.lang.psi.tree.EbnfLeafNode;
 
-public interface EbnfNonTerminal extends EbnfLeafNode {
+public interface EbnfNonTerminal extends EbnfExpr, EbnfLeafNode {
 
   @NotNull
   PsiElement getId();

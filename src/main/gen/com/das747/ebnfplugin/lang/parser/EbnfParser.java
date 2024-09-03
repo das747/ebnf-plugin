@@ -37,7 +37,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
     create_token_set_(ALTERNATIVE_EXPR, CONCAT_EXPR, EXPR, MULTIPLE_EXPR,
-      OPTIONAL_EXPR, TERMINAL),
+      NON_TERMINAL, OPTIONAL_EXPR, TERMINAL),
   };
 
   /* ********************************************************** */
@@ -202,15 +202,14 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !<<eof>> rule ';'
+  // !<<eof>> rule
   static boolean root_item(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "root_item")) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
     r = root_item_0(b, l + 1);
     p = r; // pin = 1
-    r = r && report_error_(b, rule(b, l + 1));
-    r = p && consumeToken(b, SEMI) && r;
+    r = r && rule(b, l + 1);
     exit_section_(b, l, m, r, p, EbnfParser::rule_recover);
     return r || p;
   }
@@ -226,7 +225,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // non_terminal ':=' expr
+  // non_terminal ':=' expr ';'
   public static boolean rule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "rule")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -235,7 +234,8 @@ public class EbnfParser implements PsiParser, LightPsiParser {
     r = non_terminal(b, l + 1);
     r = r && consumeToken(b, ASSN);
     p = r; // pin = 2
-    r = r && expr(b, l + 1);
+    r = r && report_error_(b, expr(b, l + 1));
+    r = p && consumeToken(b, SEMI) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }

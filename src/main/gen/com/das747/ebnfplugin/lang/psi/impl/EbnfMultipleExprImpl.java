@@ -27,10 +27,4 @@ public class EbnfMultipleExprImpl extends EbnfTreeNodeImplMixin implements EbnfM
     else super.accept(visitor);
   }
 
-  @Override
-  @NotNull
-  public EbnfExpr getExpr() {
-    return findNotNullChildByClass(EbnfExpr.class);
-  }
-
 }

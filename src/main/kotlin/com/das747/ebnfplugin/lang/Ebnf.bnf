@@ -35,12 +35,11 @@
 }
 
 root ::= root_item *
-private root_item ::= !<<eof>> rule ';' {pin=1 recoverWhile=rule_recover}
-rule ::= non_terminal ':=' expr {
+private root_item ::= !<<eof>> rule {pin=1 recoverWhile=rule_recover}
+rule ::= non_terminal ':=' expr ';'{
   pin=2
   mixin="com.das747.ebnfplugin.lang.psi.impl.EbnfRuleImplMixin"
   implements="com.das747.ebnfplugin.lang.psi.EbnfNamedElement"
-  methods = [getDefinedNonTerminal]
 }
 private rule_recover ::= !(';' | id ':=')
 expr ::= non_alternative_expr alternative_expr ?

@@ -11,7 +11,4 @@ public interface EbnfAlternativeExpr extends EbnfExpr, EbnfTreeNode {
   @NotNull
   List<EbnfExpr> getExprList();
 
-  @NotNull
-  List<EbnfNonTerminal> getNonTerminalList();
-
 }

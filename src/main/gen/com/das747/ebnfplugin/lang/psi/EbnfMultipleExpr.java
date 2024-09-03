@@ -8,7 +8,4 @@ import com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode;
 
 public interface EbnfMultipleExpr extends EbnfExpr, EbnfTreeNode {
 
-  @NotNull
-  EbnfExpr getExpr();
-
 }

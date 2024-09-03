@@ -28,15 +28,9 @@ public class EbnfExprImpl extends ASTWrapperPsiElement implements EbnfExpr {
   }
 
   @Override
-  @Nullable
+  @NotNull
   public EbnfExpr getExpr() {
-    return findChildByClass(EbnfExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public EbnfNonTerminal getNonTerminal() {
-    return findChildByClass(EbnfNonTerminal.class);
+    return findNotNullChildByClass(EbnfExpr.class);
   }
 
 }

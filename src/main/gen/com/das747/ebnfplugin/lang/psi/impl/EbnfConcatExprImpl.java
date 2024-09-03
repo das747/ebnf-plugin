@@ -33,10 +33,4 @@ public class EbnfConcatExprImpl extends EbnfTreeNodeImplMixin implements EbnfCon
     return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfExpr.class);
   }
 
-  @Override
-  @NotNull
-  public List<EbnfNonTerminal> getNonTerminalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfNonTerminal.class);
-  }
-
 }

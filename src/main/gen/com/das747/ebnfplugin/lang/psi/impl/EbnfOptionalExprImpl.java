@@ -27,10 +27,4 @@ public class EbnfOptionalExprImpl extends EbnfTreeNodeImplMixin implements EbnfO
     else super.accept(visitor);
   }
 
-  @Override
-  @NotNull
-  public EbnfExpr getExpr() {
-    return findNotNullChildByClass(EbnfExpr.class);
-  }
-
 }

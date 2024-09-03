@@ -29,7 +29,8 @@ public class EbnfVisitor extends PsiElementVisitor {
   }
 
   public void visitNonTerminal(@NotNull EbnfNonTerminal o) {
-    visitLeafNode(o);
+    visitExpr(o);
+    // visitLeafNode(o);
   }
 
   public void visitOptionalExpr(@NotNull EbnfOptionalExpr o) {
@@ -47,10 +48,6 @@ public class EbnfVisitor extends PsiElementVisitor {
   }
 
   public void visitNamedElement(@NotNull EbnfNamedElement o) {
-    visitPsiElement(o);
-  }
-
-  public void visitLeafNode(@NotNull EbnfLeafNode o) {
     visitPsiElement(o);
   }
 
