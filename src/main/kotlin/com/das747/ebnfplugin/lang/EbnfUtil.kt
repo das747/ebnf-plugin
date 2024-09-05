@@ -2,6 +2,7 @@ package com.das747.ebnfplugin.lang
 
 import com.das747.ebnfplugin.lang.psi.*
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
@@ -12,29 +13,28 @@ fun findAllRules(project: Project): List<EbnfRule> {
     val virtualFiles = FileTypeIndex.getFiles(EbnfFileType, GlobalSearchScope.allScope(project))
     virtualFiles.forEach { file ->
         PsiManager.getInstance(project).findFile(file)?.let { ebnfFile ->
-            PsiTreeUtil.getChildrenOfType(ebnfFile, EbnfRule::class.java)?.let { rules ->
-                result.addAll(rules)
-            }
+            if (ebnfFile is EbnfFile) result.addAll(ebnfFile.findAllRules())
         }
     }
     return result
+}
+
+fun EbnfFile?.findAllRules(): List<EbnfRule> {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfRule::class.java)
+}
+
+fun EbnfFile?.findAllDefinedNonTerminals(): List<EbnfNonTerminal> {
+    return findAllRules().mapNotNull { it.getDefinedNonTerminal() }
 }
 
 fun findAllDefinedNonTerminals(project: Project): List<EbnfNonTerminal> {
     return findAllRules(project).mapNotNull { it.getDefinedNonTerminal() }
 }
 
-fun findRulesByName(project: Project, name: String): List<EbnfRule> {
-    val result = mutableListOf<EbnfRule>()
-    val virtualFiles = FileTypeIndex.getFiles(EbnfFileType, GlobalSearchScope.allScope(project))
-    virtualFiles.forEach { file ->
-        PsiManager.getInstance(project).findFile(file)?.let { ebnfFile ->
-            PsiTreeUtil.getChildrenOfType(ebnfFile, EbnfRule::class.java)?.let { rules ->
-                result.addAll(rules.filter { it.getDefinedNonTerminal()?.value == name })
-            }
-        }
-    }
-    return result
+
+fun PsiFile?.findRulesByName(name: String): List<EbnfRule> {
+    if (this !is EbnfFile) return emptyList()
+    return findAllRules().filter { it.getDefinedNonTerminal()?.value == name }
 }
 
 fun EbnfRule.getDefinedNonTerminal(): EbnfNonTerminal? {

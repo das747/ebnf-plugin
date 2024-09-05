@@ -22,7 +22,7 @@ class EbnfAnnotator : Annotator {
             return
         }
 
-        val definitions = findRulesByName(element.project, element.text)
+        val definitions = element.containingFile.findRulesByName(element.text)
         if (definitions.isEmpty()) {
             holder.newAnnotation(HighlightSeverity.ERROR, "Undefined non-terminal")
                 .range(element.textRange)

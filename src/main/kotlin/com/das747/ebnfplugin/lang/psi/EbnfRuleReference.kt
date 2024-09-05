@@ -21,8 +21,7 @@ class EbnfRuleReference(element: PsiElement) :
     }
 
     override fun multiResolve(incompleteCode: Boolean): Array<ResolveResult> {
-        val project = myElement.project
-        val definedRules = findRulesByName(project, key)
+        val definedRules = myElement.containingFile.findRulesByName(key)
         return definedRules.map { PsiElementResolveResult(it) }.toTypedArray()
     }
 

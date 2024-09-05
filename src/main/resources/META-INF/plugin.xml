@@ -65,5 +65,14 @@
     <lang.formatter
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.ide.formatter.EbnfFormattingModelBuilder"/>
+    <localInspection
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.EbnfUnusedDeclarationInspection"
+      enabledByDefault="true"
+      groupPath="EBNF"
+      groupBundle="messages.InspectionsBundle"
+      groupKey="group.names.probable.bugs"
+      displayName="Ebnf unused rule"
+    />
   </extensions>
 </idea-plugin>

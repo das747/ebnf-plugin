@@ -24,7 +24,7 @@ class EbnfFoldingBuilder : FoldingBuilderEx() {
                 super.visitNonTerminal(o)
 
                 if (!o.checkIfLhs()) {
-                    val rules = findRulesByName(o.project, o.value)
+                    val rules = o.containingFile.findRulesByName(o.value)
                     if (rules.size == 1) {
                         descriptors.add(FoldingDescriptor(o.node, o.textRange, null, rules.toSet()))
                     }
@@ -38,7 +38,7 @@ class EbnfFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? {
         return when (val psiElement = node.psi) {
             is EbnfNonTerminal -> {
-                val rules = findRulesByName(psiElement.project, psiElement.value)
+                val rules = psiElement.containingFile.findRulesByName(psiElement.value)
                 if (rules.size == 1) {
                     "( ${rules[0].getDefinition()?.text} )"
                 } else {
