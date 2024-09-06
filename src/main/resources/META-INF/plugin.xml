@@ -72,7 +72,9 @@
       groupPath="EBNF"
       groupBundle="messages.InspectionsBundle"
       groupKey="group.names.probable.bugs"
-      displayName="Ebnf unused rule"
-    />
+      displayName="Ebnf unused rule"/>
+    <spellchecker.support
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.EbnfSpellcheckingStrategy"/>
   </extensions>
 </idea-plugin>
