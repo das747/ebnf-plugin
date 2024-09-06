@@ -79,5 +79,8 @@
     <lang.braceMatcher
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.ide.EbnfBraceMatcher"/>
+    <lang.quoteHandler
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.EbnfQuoteHandler"/>
   </extensions>
 </idea-plugin>

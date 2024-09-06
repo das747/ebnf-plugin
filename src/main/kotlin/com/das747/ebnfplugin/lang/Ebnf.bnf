@@ -27,7 +27,7 @@
      comment='regexp://.*'
      number='regexp:\d+(\.\d*)?'
      id='regexp:\p{Alpha}\w*'
-     string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+     string="regexp:('([^'\\\n\r]|\\.)*'?|\"([^\"\\\r\n]|\\.)*\"?)"
   ]
   implements(".*_expr")="com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode"
   extends(".*_expr")=expr
