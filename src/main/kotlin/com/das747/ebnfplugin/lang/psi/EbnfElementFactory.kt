@@ -15,6 +15,7 @@ object EbnfElementFactory {
 
     fun createFile(project: Project, text: String): EbnfFile {
         val name = "dummy.ebnf"
-        return PsiFileFactory.getInstance(project).createFileFromText(name, EbnfFileType, text) as EbnfFile
+        return PsiFileFactory.getInstance(project)
+            .createFileFromText(name, EbnfFileType, text) as EbnfFile
     }
 }

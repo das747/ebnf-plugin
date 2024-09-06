@@ -17,7 +17,7 @@ import com.intellij.psi.tree.TokenSet
 
 val EbnfFileElementType = IFileElementType(EbnfLanguage)
 
-class EbnfParserDefinition: ParserDefinition {
+class EbnfParserDefinition : ParserDefinition {
     override fun createLexer(project: Project?): Lexer = EbnfLexerAdapter()
 
     override fun createParser(project: Project?): PsiParser = EbnfParser()

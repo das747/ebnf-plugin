@@ -8,7 +8,6 @@ import com.das747.ebnfplugin.lang.psi.EbnfNonTerminal
 import com.das747.ebnfplugin.lang.psi.EbnfRecursiveVisitor
 import com.das747.ebnfplugin.lang.psi.EbnfRule
 import com.das747.ebnfplugin.lang.psi.EbnfRuleReference
-import com.intellij.codeHighlighting.HighlightDisplayLevel
 import com.intellij.codeInspection.*
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiFile

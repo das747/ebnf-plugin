@@ -15,7 +15,8 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.util.PsiTreeUtil
 
-class EbnfStructureViewElement(private val element: NavigatablePsiElement) : StructureViewTreeElement,
+class EbnfStructureViewElement(private val element: NavigatablePsiElement) :
+    StructureViewTreeElement,
     SortableTreeElement {
 
     override fun getPresentation(): ItemPresentation {

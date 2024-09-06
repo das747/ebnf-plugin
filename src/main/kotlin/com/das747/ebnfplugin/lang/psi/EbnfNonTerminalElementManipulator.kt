@@ -10,7 +10,10 @@ class EbnfNonTerminalElementManipulator : AbstractElementManipulator<EbnfNonTerm
         newContent: String?
     ): EbnfNonTerminal? {
         if (newContent == null) return null
-        val newElement = EbnfElementFactory.createNonTerminal(element.project, range.replace(element.text, newContent))
+        val newElement = EbnfElementFactory.createNonTerminal(
+            element.project,
+            range.replace(element.text, newContent)
+        )
         return element.replace(newElement) as EbnfNonTerminal
     }
 }

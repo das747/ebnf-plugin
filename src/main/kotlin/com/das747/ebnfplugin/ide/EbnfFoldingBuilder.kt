@@ -45,6 +45,7 @@ class EbnfFoldingBuilder : FoldingBuilderEx() {
                     StringUtil.THREE_DOTS
                 }
             }
+
             else -> null
         }
     }

@@ -8,7 +8,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import javax.swing.Icon
 
-abstract class EbnfRuleImplMixin(node: ASTNode): EbnfRule, EbnfNamedElementImpl(node) {
+abstract class EbnfRuleImplMixin(node: ASTNode) : EbnfRule, EbnfNamedElementImpl(node) {
     override fun setName(name: String): PsiElement {
         getDefinedNonTerminal()?.let { oldName ->
             val newName = EbnfElementFactory.createNonTerminal(this.project, name)

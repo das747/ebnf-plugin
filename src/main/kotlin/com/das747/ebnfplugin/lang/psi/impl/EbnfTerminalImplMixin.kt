@@ -6,7 +6,7 @@ import com.das747.ebnfplugin.lang.psi.EbnfTerminal
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 
-abstract class EbnfTerminalImplMixin(node: ASTNode): EbnfTerminal, EbnfExprNodeImpl(node){
+abstract class EbnfTerminalImplMixin(node: ASTNode) : EbnfTerminal, EbnfExprNodeImpl(node) {
     override fun collectUsedNonTerminals(list: MutableList<EbnfNonTerminal>) {
         return
     }

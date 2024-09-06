@@ -2,7 +2,7 @@ package com.das747.ebnfplugin.ide
 
 import com.intellij.lang.Commenter
 
-class EbnfCommenter: Commenter {
+class EbnfCommenter : Commenter {
     override fun getLineCommentPrefix(): String? = "// "
 
     override fun getBlockCommentPrefix(): String? = null

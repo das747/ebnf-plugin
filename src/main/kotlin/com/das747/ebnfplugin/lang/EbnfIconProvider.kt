@@ -6,9 +6,9 @@ import com.intellij.ide.IconProvider
 import com.intellij.psi.PsiElement
 import javax.swing.Icon
 
-class EbnfIconProvider: IconProvider() {
+class EbnfIconProvider : IconProvider() {
     override fun getIcon(element: PsiElement, flags: Int): Icon? {
-        return when(element) {
+        return when (element) {
             is EbnfRule -> EbnfIcons.FILE
             is EbnfExprNode -> EbnfIcons.FILE
             else -> null

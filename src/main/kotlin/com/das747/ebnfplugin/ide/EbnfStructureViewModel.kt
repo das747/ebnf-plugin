@@ -1,8 +1,6 @@
 package com.das747.ebnfplugin.ide
 
-import com.das747.ebnfplugin.lang.psi.EbnfNonTerminal
 import com.das747.ebnfplugin.lang.psi.EbnfRule
-import com.das747.ebnfplugin.lang.psi.EbnfTerminal
 import com.das747.ebnfplugin.lang.psi.tree.EbnfLeafNode
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
