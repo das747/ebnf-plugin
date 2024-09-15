@@ -1,0 +1,3 @@
+<info textAttributesKey="DEFAULT_FUNCTION_DECLARATION">a</info> := "a" | "b";
+
+<info textAttributesKey="DEFAULT_FUNCTION_DECLARATION">b</info> := <info textAttributesKey="DEFAULT_KEYWORD">a</info> | <error descr="Undefined non-terminal">c</error>;

@@ -1,0 +1,3 @@
+a<caret> := "aaaa";
+
+b := a | "bbbb" [a | c];

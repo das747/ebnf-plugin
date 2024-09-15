@@ -9,10 +9,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.psi.PsiElement
 
-class EbnfFoldingBuilder : FoldingBuilderEx() {
+class EbnfFoldingBuilder : FoldingBuilderEx(), DumbAware {
     override fun buildFoldRegions(
         root: PsiElement,
         document: Document,

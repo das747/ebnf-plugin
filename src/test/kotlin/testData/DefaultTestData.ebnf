@@ -1,0 +1,15 @@
+// sample EBNF file
+a := "a";
+b := a | "b";
+
+c := a b "c";
+
+zeroOrMore := {a};
+oneOrMore := [a];
+group := (a);
+
+complex := a | b {c | [("abc" | b c a)]};
+
+// string with newline
+illegal := "abc
+def";

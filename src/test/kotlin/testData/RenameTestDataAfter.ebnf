@@ -1,0 +1,3 @@
+d := "aaaa";
+
+b := d | "bbbb" [d | c];

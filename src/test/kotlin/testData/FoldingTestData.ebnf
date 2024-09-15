@@ -1,0 +1,3 @@
+a := "aaaa";
+
+b := <fold text='( "aaaa" )'>a</fold> | "bbbb" [<fold text='( "aaaa" )'>a</fold> | c];
