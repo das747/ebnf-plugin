@@ -16,7 +16,6 @@ public class EbnfNonTerminalImpl extends EbnfNonTerminalImplMixin implements Ebn
     super(node);
   }
 
-  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitNonTerminal(this);
   }

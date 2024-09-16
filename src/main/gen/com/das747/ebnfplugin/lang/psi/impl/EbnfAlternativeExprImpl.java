@@ -16,7 +16,6 @@ public class EbnfAlternativeExprImpl extends EbnfTreeNodeImplMixin implements Eb
     super(node);
   }
 
-  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitAlternativeExpr(this);
   }

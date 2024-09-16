@@ -16,7 +16,6 @@ public class EbnfConcatExprImpl extends EbnfTreeNodeImplMixin implements EbnfCon
     super(node);
   }
 
-  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitConcatExpr(this);
   }

@@ -16,7 +16,6 @@ public class EbnfTerminalImpl extends EbnfTerminalImplMixin implements EbnfTermi
     super(node);
   }
 
-  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitTerminal(this);
   }

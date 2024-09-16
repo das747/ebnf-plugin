@@ -41,37 +41,74 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   };
 
   /* ********************************************************** */
-  // ('|' non_alternative_expr) +
+  // '|' non_alternative_expr
+  static boolean alternative_clause(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alternative_clause")) return false;
+    if (!nextTokenIs(b, OR)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = consumeToken(b, OR);
+    p = r; // pin = 1
+    r = r && non_alternative_expr(b, l + 1);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // alternative_clause +
   public static boolean alternative_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "alternative_expr")) return false;
     if (!nextTokenIs(b, OR)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _LEFT_, ALTERNATIVE_EXPR, null);
-    r = alternative_expr_0(b, l + 1);
+    r = alternative_clause(b, l + 1);
     while (r) {
       int c = current_position_(b);
-      if (!alternative_expr_0(b, l + 1)) break;
+      if (!alternative_clause(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "alternative_expr", c)) break;
     }
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // '|' non_alternative_expr
-  private static boolean alternative_expr_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alternative_expr_0")) return false;
+  /* ********************************************************** */
+  // !("|" | ";" | id ':=')
+  static boolean alternative_recover(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alternative_recover")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !alternative_recover_0(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // "|" | ";" | id ':='
+  private static boolean alternative_recover_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alternative_recover_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, OR);
-    r = r && non_alternative_expr(b, l + 1);
+    if (!r) r = consumeToken(b, SEMI);
+    if (!r) r = parseTokens(b, 0, ID, ASSN);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // optional_expr | multiple_expr | group_expr | terminal | non_terminal
+  // (optional_expr | multiple_expr | group_expr | terminal | non_terminal) !(':=')
   static boolean atom_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "atom_expr")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = atom_expr_0(b, l + 1);
+    r = r && atom_expr_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // optional_expr | multiple_expr | group_expr | terminal | non_terminal
+  private static boolean atom_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atom_expr_0")) return false;
     boolean r;
     r = optional_expr(b, l + 1);
     if (!r) r = multiple_expr(b, l + 1);
@@ -81,19 +118,72 @@ public class EbnfParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  // !(':=')
+  private static boolean atom_expr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atom_expr_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !consumeToken(b, ASSN);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
   /* ********************************************************** */
-  // atom_expr +
+  // !("]" | ")" | "}" | "|") rule_recover
+  static boolean basic_recover(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "basic_recover")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = basic_recover_0(b, l + 1);
+    r = r && rule_recover(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // !("]" | ")" | "}" | "|")
+  private static boolean basic_recover_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "basic_recover_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !basic_recover_0_0(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // "]" | ")" | "}" | "|"
+  private static boolean basic_recover_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "basic_recover_0_0")) return false;
+    boolean r;
+    r = consumeToken(b, SQR_R);
+    if (!r) r = consumeToken(b, BRACE_R);
+    if (!r) r = consumeToken(b, CURL_R);
+    if (!r) r = consumeToken(b, OR);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // (atom_expr) +
   public static boolean concat_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "concat_expr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _LEFT_, CONCAT_EXPR, "<concat expr>");
-    r = atom_expr(b, l + 1);
+    r = concat_expr_0(b, l + 1);
     while (r) {
       int c = current_position_(b);
-      if (!atom_expr(b, l + 1)) break;
+      if (!concat_expr_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "concat_expr", c)) break;
     }
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (atom_expr)
+  private static boolean concat_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = atom_expr(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -121,13 +211,14 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   static boolean group_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "group_expr")) return false;
     if (!nextTokenIs(b, BRACE_L)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, BRACE_L);
     r = r && expr(b, l + 1);
+    p = r; // pin = 2
     r = r && consumeToken(b, BRACE_R);
-    exit_section_(b, m, null, r);
-    return r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -135,28 +226,29 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   public static boolean multiple_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "multiple_expr")) return false;
     if (!nextTokenIs(b, CURL_L)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, MULTIPLE_EXPR, null);
     r = consumeToken(b, CURL_L);
     r = r && expr(b, l + 1);
+    p = r; // pin = 2
     r = r && consumeToken(b, CURL_R);
-    exit_section_(b, m, MULTIPLE_EXPR, r);
-    return r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
-  // atom_expr concat_expr ?
+  // atom_expr concat_expr?
   static boolean non_alternative_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "non_alternative_expr")) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_);
     r = atom_expr(b, l + 1);
     r = r && non_alternative_expr_1(b, l + 1);
-    exit_section_(b, m, null, r);
+    exit_section_(b, l, m, r, false, EbnfParser::basic_recover);
     return r;
   }
 
-  // concat_expr ?
+  // concat_expr?
   private static boolean non_alternative_expr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "non_alternative_expr_1")) return false;
     concat_expr(b, l + 1);
@@ -180,13 +272,14 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   public static boolean optional_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "optional_expr")) return false;
     if (!nextTokenIs(b, SQR_L)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, OPTIONAL_EXPR, null);
     r = consumeToken(b, SQR_L);
     r = r && expr(b, l + 1);
+    p = r; // pin = 2
     r = r && consumeToken(b, SQR_R);
-    exit_section_(b, m, OPTIONAL_EXPR, r);
-    return r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -210,7 +303,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
     r = root_item_0(b, l + 1);
     p = r; // pin = 1
     r = r && rule(b, l + 1);
-    exit_section_(b, l, m, r, p, EbnfParser::rule_recover);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -225,7 +318,7 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // non_terminal ':=' expr ';'
+  // non_terminal ':=' rule_body ';'
   public static boolean rule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "rule")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -234,10 +327,21 @@ public class EbnfParser implements PsiParser, LightPsiParser {
     r = non_terminal(b, l + 1);
     r = r && consumeToken(b, ASSN);
     p = r; // pin = 2
-    r = r && report_error_(b, expr(b, l + 1));
+    r = r && report_error_(b, rule_body(b, l + 1));
     r = p && consumeToken(b, SEMI) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  /* ********************************************************** */
+  // expr
+  static boolean rule_body(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rule_body")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = expr(b, l + 1);
+    exit_section_(b, l, m, r, false, EbnfParser::rule_recover);
+    return r;
   }
 
   /* ********************************************************** */

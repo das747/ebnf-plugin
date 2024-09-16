@@ -16,7 +16,6 @@ public class EbnfMultipleExprImpl extends EbnfTreeNodeImplMixin implements EbnfM
     super(node);
   }
 
-  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitMultipleExpr(this);
   }
