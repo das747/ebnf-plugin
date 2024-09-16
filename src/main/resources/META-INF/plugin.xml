@@ -67,12 +67,44 @@
       implementationClass="com.das747.ebnfplugin.ide.formatter.EbnfFormattingModelBuilder"/>
     <localInspection
       language="EBNF"
-      implementationClass="com.das747.ebnfplugin.ide.EbnfUnusedDeclarationInspection"
+      implementationClass="com.das747.ebnfplugin.ide.inspections.EbnfUnusedDeclarationInspection"
       enabledByDefault="true"
       groupPath="EBNF"
       groupBundle="messages.InspectionsBundle"
       groupKey="group.names.probable.bugs"
-      displayName="Ebnf unused rule"/>
+      displayName="Unused rules"/>
+    <localInspection
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.inspections.EbnfMultipleDeclarationsInspection"
+      enabledByDefault="true"
+      groupPath="EBNF"
+      groupBundle="messages.InspectionsBundle"
+      groupKey="group.names.probable.bugs"
+      displayName="Multiple declarations"/>
+    <localInspection
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.inspections.EbnfEqualAlternativeVariantsInspection"
+      enabledByDefault="true"
+      groupPath="EBNF"
+      groupBundle="messages.InspectionsBundle"
+      groupKey="group.names.probable.bugs"
+      displayName="Equivalent alternative variants"/>
+    <localInspection
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.inspections.EbnfRedundantNestingInspection"
+      enabledByDefault="true"
+      groupPath="EBNF"
+      groupBundle="messages.InspectionsBundle"
+      groupKey="group.names.probable.bugs"
+      displayName="Redundant nesting"/>
+    <localInspection
+      language="EBNF"
+      implementationClass="com.das747.ebnfplugin.ide.inspections.EbnfAlternativePushDownInspection"
+      enabledByDefault="true"
+      groupPath="EBNF"
+      groupBundle="messages.InspectionsBundle"
+      groupKey="group.names.probable.bugs"
+      displayName="Alternative push down"/>
     <spellchecker.support
       language="EBNF"
       implementationClass="com.das747.ebnfplugin.ide.EbnfSpellcheckingStrategy"/>

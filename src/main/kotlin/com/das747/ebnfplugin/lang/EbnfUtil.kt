@@ -1,12 +1,17 @@
 package com.das747.ebnfplugin.lang
 
 import com.das747.ebnfplugin.lang.psi.*
+import com.das747.ebnfplugin.lang.psi.tree.EbnfLeafNode
+import com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.elementType
 
 fun findAllRules(project: Project): List<EbnfRule> {
     val result = mutableListOf<EbnfRule>()
@@ -53,4 +58,27 @@ fun EbnfNonTerminal.checkIfLhs(): Boolean {
     return this.parent?.let {
         it is EbnfRule && it.getDefinedNonTerminal() == this
     } ?: false
+}
+
+fun PsiElement.getChildRange(child: PsiElement?): TextRange? {
+    return child?.textRange?.shiftLeft(this.textRange.startOffset)
+}
+
+fun checkExpressionEquality(left: EbnfExpr, right: EbnfExpr): Boolean {
+    return when {
+        left == right -> true
+        left.elementType != right.elementType -> false
+        left is EbnfTreeNode && right is EbnfTreeNode -> {
+            val leftChildren = left.getChildrenExpr()
+            val rightChildren = right.getChildrenExpr()
+            (leftChildren.size == rightChildren.size && leftChildren.zip(rightChildren)
+                .all { (l, r) -> checkExpressionEquality(l, r) })
+        }
+
+        left is EbnfLeafNode && right is EbnfLeafNode -> {
+            left.value == right.value
+        }
+
+        else -> false
+    }
 }

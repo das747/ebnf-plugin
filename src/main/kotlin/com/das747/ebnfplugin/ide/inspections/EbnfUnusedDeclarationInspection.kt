@@ -1,17 +1,12 @@
-package com.das747.ebnfplugin.ide
+package com.das747.ebnfplugin.ide.inspections
 
-import com.das747.ebnfplugin.lang.EbnfFile
-import com.das747.ebnfplugin.lang.checkIfLhs
-import com.das747.ebnfplugin.lang.findAllRules
-import com.das747.ebnfplugin.lang.getDefinedNonTerminal
+import com.das747.ebnfplugin.lang.*
 import com.das747.ebnfplugin.lang.psi.EbnfNonTerminal
 import com.das747.ebnfplugin.lang.psi.EbnfRecursiveVisitor
 import com.das747.ebnfplugin.lang.psi.EbnfRule
 import com.das747.ebnfplugin.lang.psi.EbnfRuleReference
 import com.intellij.codeInspection.*
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiFile
-import com.intellij.refactoring.suggested.startOffset
 
 class EbnfUnusedDeclarationInspection : LocalInspectionTool() {
 
@@ -46,14 +41,10 @@ class EbnfUnusedDeclarationInspection : LocalInspectionTool() {
                     it,
                     "Unused rule",
                     ProblemHighlightType.LIKE_UNUSED_SYMBOL,
-                    it.getLhsRange()
+                    it.getChildRange(it.getDefinedNonTerminal())
                 )
             }
         }
         return problems.resultsArray
     }
-}
-
-private fun EbnfRule.getLhsRange(): TextRange? {
-    return getDefinedNonTerminal()?.textRange?.shiftLeft(this.startOffset)
 }
