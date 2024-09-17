@@ -1,6 +1,5 @@
 {
   parserClass="com.das747.ebnfplugin.lang.parser.EbnfParser"
-  parserUtilClass="com.das747.ebnfplugin.lang.parser.EbnfParserUtil"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
@@ -48,7 +47,7 @@ private rule_recover ::= !(';' | id ':=')
 expr ::= non_alternative_expr alternative_expr ?
 left alternative_expr ::= alternative_clause +
 private alternative_clause ::= '|' non_alternative_expr {pin=1}
-private non_alternative_expr ::= atom_expr concat_expr?   {recoverWhile=basic_recover}
+non_alternative_expr ::= atom_expr concat_expr?   {recoverWhile=basic_recover}
 left concat_expr ::= (atom_expr) +
 private atom_expr ::= (optional_expr | multiple_expr | group_expr | terminal | non_terminal) !(':=')
 

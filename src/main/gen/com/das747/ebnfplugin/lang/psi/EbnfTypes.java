@@ -13,6 +13,7 @@ public interface EbnfTypes {
   IElementType EXPR = new EbnfElementType("EXPR");
   IElementType GROUP_EXPR = new EbnfElementType("GROUP_EXPR");
   IElementType MULTIPLE_EXPR = new EbnfElementType("MULTIPLE_EXPR");
+  IElementType NON_ALTERNATIVE_EXPR = new EbnfElementType("NON_ALTERNATIVE_EXPR");
   IElementType NON_TERMINAL = new EbnfElementType("NON_TERMINAL");
   IElementType OPTIONAL_EXPR = new EbnfElementType("OPTIONAL_EXPR");
   IElementType RULE = new EbnfElementType("RULE");
@@ -46,6 +47,9 @@ public interface EbnfTypes {
       }
       else if (type == MULTIPLE_EXPR) {
         return new EbnfMultipleExprImpl(node);
+      }
+      else if (type == NON_ALTERNATIVE_EXPR) {
+        return new EbnfNonAlternativeExprImpl(node);
       }
       else if (type == NON_TERMINAL) {
         return new EbnfNonTerminalImpl(node);

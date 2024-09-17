@@ -37,7 +37,8 @@ public class EbnfParser implements PsiParser, LightPsiParser {
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
     create_token_set_(ALTERNATIVE_EXPR, CONCAT_EXPR, EXPR, GROUP_EXPR,
-      MULTIPLE_EXPR, NON_TERMINAL, OPTIONAL_EXPR, TERMINAL),
+      MULTIPLE_EXPR, NON_ALTERNATIVE_EXPR, NON_TERMINAL, OPTIONAL_EXPR,
+      TERMINAL),
   };
 
   /* ********************************************************** */
@@ -68,29 +69,6 @@ public class EbnfParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "alternative_expr", c)) break;
     }
     exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // !("|" | ";" | id ':=')
-  static boolean alternative_recover(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alternative_recover")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NOT_);
-    r = !alternative_recover_0(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // "|" | ";" | id ':='
-  private static boolean alternative_recover_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alternative_recover_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, OR);
-    if (!r) r = consumeToken(b, SEMI);
-    if (!r) r = parseTokens(b, 0, ID, ASSN);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -238,10 +216,10 @@ public class EbnfParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // atom_expr concat_expr?
-  static boolean non_alternative_expr(PsiBuilder b, int l) {
+  public static boolean non_alternative_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "non_alternative_expr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_);
+    Marker m = enter_section_(b, l, _COLLAPSE_, NON_ALTERNATIVE_EXPR, "<non alternative expr>");
     r = atom_expr(b, l + 1);
     r = r && non_alternative_expr_1(b, l + 1);
     exit_section_(b, l, m, r, false, EbnfParser::basic_recover);

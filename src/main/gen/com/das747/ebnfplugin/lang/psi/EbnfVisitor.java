@@ -33,6 +33,11 @@ public class EbnfVisitor extends PsiElementVisitor {
     // visitTreeNode(o);
   }
 
+  public void visitNonAlternativeExpr(@NotNull EbnfNonAlternativeExpr o) {
+    visitExpr(o);
+    // visitTreeNode(o);
+  }
+
   public void visitNonTerminal(@NotNull EbnfNonTerminal o) {
     visitExpr(o);
     // visitLeafNode(o);
