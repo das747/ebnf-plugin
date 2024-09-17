@@ -24,11 +24,12 @@ fun findAllRules(project: Project): List<EbnfRule> {
     return result
 }
 
-fun EbnfFile?.findAllRules(): List<EbnfRule> {
+fun PsiFile?.findAllRules(): List<EbnfRule> {
+    if (this !is EbnfFile) return emptyList()
     return PsiTreeUtil.getChildrenOfTypeAsList(this, EbnfRule::class.java)
 }
 
-fun EbnfFile?.findAllDefinedNonTerminals(): List<EbnfNonTerminal> {
+fun PsiFile?.findAllDefinedNonTerminals(): List<EbnfNonTerminal> {
     return findAllRules().mapNotNull { it.getDefinedNonTerminal() }
 }
 

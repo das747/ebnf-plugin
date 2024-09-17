@@ -26,7 +26,7 @@ class EbnfRuleReference(element: PsiElement) :
     }
 
     override fun getVariants(): Array<Any> {
-        return findAllRules(myElement.project).map {
+        return myElement.containingFile.findAllRules().map {
             LookupElementBuilder.create(it).withIcon(EbnfIcons.FILE)
                 .withTypeText(it.containingFile.name)
         }.toTypedArray()

@@ -4,7 +4,6 @@ import com.das747.ebnfplugin.lang.checkExpressionEquality
 import com.das747.ebnfplugin.lang.psi.EbnfAlternativeExpr
 import com.das747.ebnfplugin.lang.psi.EbnfExpr
 import com.das747.ebnfplugin.lang.psi.EbnfVisitor
-import com.intellij.codeInsight.intention.FileModifier.SafeFieldForPreview
 import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
 import com.intellij.codeInspection.*
 import com.intellij.openapi.project.Project

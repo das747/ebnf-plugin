@@ -3,7 +3,6 @@ package com.das747.ebnfplugin.ide.inspections
 import com.das747.ebnfplugin.lang.hasSameElementType
 import com.das747.ebnfplugin.lang.psi.*
 import com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode
-import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
 import com.intellij.codeInspection.*
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
