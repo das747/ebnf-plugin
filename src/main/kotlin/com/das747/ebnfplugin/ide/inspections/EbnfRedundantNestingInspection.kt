@@ -1,6 +1,5 @@
 package com.das747.ebnfplugin.ide.inspections
 
-import com.das747.ebnfplugin.lang.getChildRange
 import com.das747.ebnfplugin.lang.hasSameElementType
 import com.das747.ebnfplugin.lang.psi.*
 import com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode
@@ -9,7 +8,6 @@ import com.intellij.codeInspection.*
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
-import com.intellij.psi.PsiExpression
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.elementType
 
@@ -19,48 +17,42 @@ class EbnfRedundantNestingInspection : LocalInspectionTool() {
             private fun addProblem(element: EbnfExpr) {
                 holder.registerProblem(
                     element,
-                    "Redundant nesting of ${element.elementType}",
+                    "Redundant grouping",
                     ProblemHighlightType.WEAK_WARNING,
                     null,
                     RemoveRedundantNestingQuickFix()
                 )
             }
 
-            fun visitEbnfTreeNode(expr: EbnfTreeNode) {
-                findNestedExpressions(expr).forEach { addProblem(it) }
-            }
-
-            override fun visitAlternativeExpr(o: EbnfAlternativeExpr) {
-                super.visitAlternativeExpr(o)
-                visitEbnfTreeNode(o)
-            }
-
-            override fun visitConcatExpr(o: EbnfConcatExpr) {
-                super.visitConcatExpr(o)
-                o.getChildrenExpr().filterIsInstance<EbnfGroupExpr>().filter {
-                    it.getChildrenExpr().let { it.isNotEmpty() && it[0] !is EbnfAlternativeExpr }
-                }.forEach { addProblem(it) }
+            private fun visitModifier(o: EbnfTreeNode) {
+                if (o.parent.hasSameElementType(o)) {
+                    addProblem(o)
+                }
             }
 
             override fun visitOptionalExpr(o: EbnfOptionalExpr) {
                 super.visitOptionalExpr(o)
-                visitEbnfTreeNode(o)
+                visitModifier(o)
             }
 
             override fun visitMultipleExpr(o: EbnfMultipleExpr) {
                 super.visitMultipleExpr(o)
-                visitEbnfTreeNode(o)
+                visitModifier(o)
+            }
+
+            override fun visitGroupExpr(o: EbnfGroupExpr) {
+                super.visitGroupExpr(o)
+                val children = o.getChildrenExpr()
+                if (children.isNotEmpty() &&
+                    (children[0] !is EbnfAlternativeExpr || o.parent !is EbnfConcatExpr)
+                ) {
+                    addProblem(o)
+                }
             }
 
         }
     }
 }
-
-
-private fun findNestedExpressions(expr: EbnfTreeNode): List<EbnfExpr> {
-    return expr.getChildrenExpr().filter { it.hasSameElementType(expr) || it is EbnfGroupExpr }
-}
-
 
 private class RemoveRedundantNestingQuickFix : LocalQuickFix {
     override fun getFamilyName(): String = "Remove redundant nesting"
@@ -68,7 +60,7 @@ private class RemoveRedundantNestingQuickFix : LocalQuickFix {
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val target = descriptor.psiElement
         val child = liftChild(target) ?: return
-        if (target.elementType in EbnfTokenSets.LIST_EXPRESSIONS &&
+        if (child.elementType in EbnfTokenSets.LIST_EXPRESSIONS &&
             target.parent.hasSameElementType(child)
         ) {
             mergeChild(child)
