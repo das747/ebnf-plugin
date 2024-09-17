@@ -1,6 +1,7 @@
 package com.das747.ebnfplugin.ide.inspections
 
 import com.das747.ebnfplugin.lang.checkExpressionEquality
+import com.das747.ebnfplugin.lang.deleteVariant
 import com.das747.ebnfplugin.lang.psi.EbnfAlternativeExpr
 import com.das747.ebnfplugin.lang.psi.EbnfExpr
 import com.das747.ebnfplugin.lang.psi.EbnfVisitor
@@ -57,9 +58,7 @@ private class SafeDeleteEquivalentAlternativesQuickFix(project: Project, variant
         val alternative = descriptor.psiElement.parent
         if (alternative !is EbnfAlternativeExpr) return
         variantsPointers.mapNotNull { it.element }.drop(1).forEach { variant ->
-            PsiTreeUtil.getPrevSiblingOfType(variant, EbnfExpr::class.java)?.let { prev ->
-                alternative.deleteChildRange(prev.nextSibling, variant)
-            } ?: variant.delete()
+            alternative.deleteVariant(variant)
         }
     }
 
