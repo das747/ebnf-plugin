@@ -58,10 +58,9 @@ private class SafeDeleteEquivalentAlternativesQuickFix(project: Project, variant
         val alternative = descriptor.psiElement.parent
         if (alternative !is EbnfAlternativeExpr) return
         variantsPointers.mapNotNull { it.element }.drop(1).forEach { variant ->
-            val prev = PsiTreeUtil.getPrevSiblingOfType(variant, EbnfExpr::class.java)
-            prev?.let {
+            PsiTreeUtil.getPrevSiblingOfType(variant, EbnfExpr::class.java)?.let { prev ->
                 alternative.deleteChildRange(prev.nextSibling, variant)
-            } ?: alternative.node.removeChild(variant.node)
+            } ?: variant.delete()
         }
     }
 

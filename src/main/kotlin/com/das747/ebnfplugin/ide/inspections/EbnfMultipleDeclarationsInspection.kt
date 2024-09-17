@@ -43,7 +43,7 @@ private class CombineRuleDeclarationsQuickFix: LocalQuickFix {
         if (target !is EbnfRule) return
         val rules = target.containingFile.findRulesByName(target.name)
         val newRule = EbnfElementFactory.createRule(project, target.name ?: "", rules.map { it.getDefinition()?.text ?: "" })
-        target.parent.node.replaceChild(target.node, newRule.node)
-        rules.filter { it != target }.forEach { it.parent.node.removeChild(it.node) }
+        target.replace(newRule)
+        rules.filter { it != target }.forEach { it.delete() }
     }
 }

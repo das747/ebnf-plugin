@@ -59,6 +59,6 @@ private class SafeDeleteRuleQuickFix: LocalQuickFix, HighPriorityAction {
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val rule = descriptor.psiElement
-        rule.parent.node.removeChild(rule.node)
+        rule.delete()
     }
 }

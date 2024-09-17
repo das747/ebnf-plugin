@@ -43,9 +43,7 @@ class EbnfRedundantNestingInspection : LocalInspectionTool() {
             override fun visitGroupExpr(o: EbnfGroupExpr) {
                 super.visitGroupExpr(o)
                 val children = o.getChildrenExpr()
-                if (children.isNotEmpty() &&
-                    (children[0] !is EbnfAlternativeExpr || o.parent !is EbnfConcatExpr)
-                ) {
+                if (children.isNotEmpty() && (children[0] !is EbnfAlternativeExpr || o.parent !is EbnfConcatExpr)) {
                     addProblem(o)
                 }
             }
@@ -60,8 +58,9 @@ private class RemoveRedundantNestingQuickFix : LocalQuickFix {
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val target = descriptor.psiElement
         val child = liftChild(target) ?: return
-        if (child.elementType in EbnfTokenSets.LIST_EXPRESSIONS &&
-            target.parent.hasSameElementType(child)
+        if (child.elementType in EbnfTokenSets.LIST_EXPRESSIONS && target.parent.hasSameElementType(
+                child
+            )
         ) {
             mergeChild(child)
         }
@@ -69,24 +68,16 @@ private class RemoveRedundantNestingQuickFix : LocalQuickFix {
 
     fun liftChild(target: PsiElement): EbnfExpr? {
         val child = PsiTreeUtil.getChildOfType(target, EbnfExpr::class.java) ?: return null
-        val targetNode = target.node
-        targetNode.treeParent.replaceChild(targetNode, child.node)
-        return child
+        return target.replace(child) as EbnfExpr
     }
 
     fun mergeChild(target: PsiElement) {
-        val targetNode = target.node
-        val start = PsiTreeUtil.getChildOfType(target, EbnfExpr::class.java)?.node ?: return
-        val end = target.lastChild.let { if (it !is EbnfExpr) it.node else null }
-        targetNode.treeParent.addChildren(start, end, targetNode)
-        targetNode.treeParent.removeChild(targetNode)
+        val start = PsiTreeUtil.getChildOfType(target, EbnfExpr::class.java) ?: return
+        val end = target.lastChild.let {
+            if (it is EbnfExpr) it
+            else PsiTreeUtil.getPrevSiblingOfType(it, EbnfExpr::class.java)
+        } ?: return
+        target.parent.addRangeBefore(start, end, target)
+        target.delete()
     }
-
-    override fun generatePreview(
-        project: Project,
-        previewDescriptor: ProblemDescriptor
-    ): IntentionPreviewInfo {
-        return IntentionPreviewInfo.EMPTY
-    }
-
 }
