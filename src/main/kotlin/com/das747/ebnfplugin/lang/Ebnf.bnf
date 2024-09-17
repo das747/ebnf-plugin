@@ -1,5 +1,6 @@
 {
   parserClass="com.das747.ebnfplugin.lang.parser.EbnfParser"
+  parserUtilClass="com.das747.ebnfplugin.lang.parser.EbnfParserUtil"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
@@ -52,18 +53,9 @@ private alternative_recover ::= !("|" | ";" | id ':=')
 left concat_expr ::= (atom_expr) +
 private atom_expr ::= (optional_expr | multiple_expr | group_expr | terminal | non_terminal) !(':=')
 
-//optional_expr ::= '[' optional_body ']'  {pin=2}
-//private optional_body ::= expr {recoverWhile=optional_recover}
-//private optional_recover ::= !("|" | ";" | "]")
-
-//multiple_expr ::= '{' multiple_body '}'   {pin=2}
-//private multiple_body ::= expr {recoverWhile=multiple_recover}
-//private multiple_recover ::= !("|" | ";" | "}")
-
-
 optional_expr ::= '[' expr ']'  {pin=2}
 multiple_expr ::= '{' expr '}'   {pin=2}
-private group_expr ::= '(' expr ')'  {pin=2}
+group_expr ::= '(' expr ')'  {pin=2}
 
 
 non_terminal ::= id {

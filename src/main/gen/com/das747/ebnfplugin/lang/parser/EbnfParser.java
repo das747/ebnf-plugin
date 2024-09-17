@@ -36,8 +36,8 @@ public class EbnfParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(ALTERNATIVE_EXPR, CONCAT_EXPR, EXPR, MULTIPLE_EXPR,
-      NON_TERMINAL, OPTIONAL_EXPR, TERMINAL),
+    create_token_set_(ALTERNATIVE_EXPR, CONCAT_EXPR, EXPR, GROUP_EXPR,
+      MULTIPLE_EXPR, NON_TERMINAL, OPTIONAL_EXPR, TERMINAL),
   };
 
   /* ********************************************************** */
@@ -208,11 +208,11 @@ public class EbnfParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // '(' expr ')'
-  static boolean group_expr(PsiBuilder b, int l) {
+  public static boolean group_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "group_expr")) return false;
     if (!nextTokenIs(b, BRACE_L)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_);
+    Marker m = enter_section_(b, l, _NONE_, GROUP_EXPR, null);
     r = consumeToken(b, BRACE_L);
     r = r && expr(b, l + 1);
     p = r; // pin = 2

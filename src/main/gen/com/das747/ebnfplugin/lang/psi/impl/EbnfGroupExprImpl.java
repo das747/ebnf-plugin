@@ -10,15 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfTerminalImpl extends EbnfTerminalImplMixin implements EbnfTerminal {
+public class EbnfGroupExprImpl extends EbnfTreeNodeImplMixin implements EbnfGroupExpr {
 
-  public EbnfTerminalImpl(@NotNull ASTNode node) {
+  public EbnfGroupExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   @Override
   public void accept(@NotNull EbnfVisitor visitor) {
-    visitor.visitTerminal(this);
+    visitor.visitGroupExpr(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class EbnfTerminalImpl extends EbnfTerminalImplMixin implements EbnfTermi
 
   @Override
   @NotNull
-  public PsiElement getString() {
-    return findNotNullChildByType(STRING);
+  public EbnfExpr getExpr() {
+    return findNotNullChildByClass(EbnfExpr.class);
   }
 
 }

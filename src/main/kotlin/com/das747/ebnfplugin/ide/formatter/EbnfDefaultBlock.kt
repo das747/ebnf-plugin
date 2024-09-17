@@ -13,7 +13,7 @@ fun createEbnfBlock(
     attributes: EbnfBlockAttributes
 ): Block {
     return when (node.psi.elementType) {
-        in EbnfTokenSets.MODIFIER_EXPRESSIONS -> EbnfBracedBlock(node, attributes)
+        in EbnfTokenSets.BRACED_EXPRESSIONS -> EbnfBracedBlock(node, attributes)
         EbnfTypes.ALTERNATIVE_EXPR -> EbnfAlternativeBlock(node, attributes)
         EbnfTypes.CONCAT_EXPR -> EbnfConcatBlock(node, attributes)
         else -> EbnfDefaultBlock(node, attributes)

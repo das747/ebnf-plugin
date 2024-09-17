@@ -5,7 +5,9 @@ import com.das747.ebnfplugin.lang.psi.EbnfNonTerminal
 import com.das747.ebnfplugin.lang.psi.EbnfRecursiveVisitor
 import com.das747.ebnfplugin.lang.psi.EbnfRule
 import com.das747.ebnfplugin.lang.psi.EbnfRuleReference
+import com.intellij.codeInsight.intention.HighPriorityAction
 import com.intellij.codeInspection.*
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 
 class EbnfUnusedDeclarationInspection : LocalInspectionTool() {
@@ -41,10 +43,22 @@ class EbnfUnusedDeclarationInspection : LocalInspectionTool() {
                     it,
                     "Unused rule",
                     ProblemHighlightType.LIKE_UNUSED_SYMBOL,
-                    it.getChildRange(it.getDefinedNonTerminal())
+                    it.getChildRange(it.getDefinedNonTerminal()),
+                    SafeDeleteRuleQuickFix()
                 )
             }
         }
         return problems.resultsArray
+    }
+}
+
+private class SafeDeleteRuleQuickFix: LocalQuickFix, HighPriorityAction {
+    override fun getFamilyName(): String = "Safe delete"
+
+    override fun getName(): String = "Safe delete rule"
+
+    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
+        val rule = descriptor.psiElement
+        rule.parent.node.removeChild(rule.node)
     }
 }

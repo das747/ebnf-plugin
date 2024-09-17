@@ -23,6 +23,11 @@ public class EbnfVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitGroupExpr(@NotNull EbnfGroupExpr o) {
+    visitExpr(o);
+    // visitTreeNode(o);
+  }
+
   public void visitMultipleExpr(@NotNull EbnfMultipleExpr o) {
     visitExpr(o);
     // visitTreeNode(o);

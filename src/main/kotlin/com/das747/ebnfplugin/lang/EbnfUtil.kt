@@ -37,7 +37,7 @@ fun findAllDefinedNonTerminals(project: Project): List<EbnfNonTerminal> {
 }
 
 
-fun PsiFile?.findRulesByName(name: String): List<EbnfRule> {
+fun PsiFile?.findRulesByName(name: String?): List<EbnfRule> {
     if (this !is EbnfFile) return emptyList()
     return findAllRules().filter { it.getDefinedNonTerminal()?.value == name }
 }
@@ -81,4 +81,8 @@ fun checkExpressionEquality(left: EbnfExpr, right: EbnfExpr): Boolean {
 
         else -> false
     }
+}
+
+fun PsiElement.hasSameElementType(other: PsiElement): Boolean {
+    return this == other || this.elementType == other.elementType
 }

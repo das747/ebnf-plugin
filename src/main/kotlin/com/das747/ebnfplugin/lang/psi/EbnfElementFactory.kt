@@ -13,6 +13,11 @@ object EbnfElementFactory {
         return file.findChildByClass(EbnfRule::class.java)!!.getDefinedNonTerminal()!!
     }
 
+    fun createRule(project: Project, name: String, definitions: List<String>): EbnfRule {
+        val file = createFile(project, "$name := ${definitions.joinToString(" | ")};")
+        return file.findChildByClass(EbnfRule::class.java)!!
+    }
+
     fun createFile(project: Project, text: String): EbnfFile {
         val name = "dummy.ebnf"
         return PsiFileFactory.getInstance(project)

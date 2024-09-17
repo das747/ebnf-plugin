@@ -16,6 +16,7 @@ public class EbnfMultipleExprImpl extends EbnfTreeNodeImplMixin implements EbnfM
     super(node);
   }
 
+  @Override
   public void accept(@NotNull EbnfVisitor visitor) {
     visitor.visitMultipleExpr(this);
   }
@@ -24,6 +25,12 @@ public class EbnfMultipleExprImpl extends EbnfTreeNodeImplMixin implements EbnfM
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof EbnfVisitor) accept((EbnfVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public EbnfExpr getExpr() {
+    return findNotNullChildByClass(EbnfExpr.class);
   }
 
 }

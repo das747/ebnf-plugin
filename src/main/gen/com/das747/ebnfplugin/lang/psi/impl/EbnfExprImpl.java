@@ -11,7 +11,7 @@ import static com.das747.ebnfplugin.lang.psi.EbnfTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.das747.ebnfplugin.lang.psi.*;
 
-public class EbnfExprImpl extends ASTWrapperPsiElement implements EbnfExpr {
+public abstract class EbnfExprImpl extends ASTWrapperPsiElement implements EbnfExpr {
 
   public EbnfExprImpl(@NotNull ASTNode node) {
     super(node);
@@ -25,12 +25,6 @@ public class EbnfExprImpl extends ASTWrapperPsiElement implements EbnfExpr {
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof EbnfVisitor) accept((EbnfVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public EbnfExpr getExpr() {
-    return findNotNullChildByClass(EbnfExpr.class);
   }
 
 }
