@@ -4,7 +4,7 @@ import com.das747.ebnfplugin.lang.EbnfFile
 import com.das747.ebnfplugin.lang.getDefinition
 import com.das747.ebnfplugin.lang.psi.EbnfRule
 import com.das747.ebnfplugin.lang.psi.impl.EbnfExprImpl
-import com.das747.ebnfplugin.lang.psi.impl.EbnfExprNodeImpl
+import com.das747.ebnfplugin.lang.psi.impl.EbnfGroupExprImpl
 import com.das747.ebnfplugin.lang.psi.impl.EbnfRuleImpl
 import com.das747.ebnfplugin.lang.psi.tree.EbnfTreeNode
 import com.intellij.ide.projectView.PresentationData
@@ -24,26 +24,31 @@ class EbnfStructureViewElement(private val element: NavigatablePsiElement) :
     }
 
     override fun getChildren(): Array<TreeElement> {
-        return when (element) {
+        val children = when (element) {
             is EbnfFile -> {
                 PsiTreeUtil.getChildrenOfType(element, EbnfRule::class.java)?.map {
-                    EbnfStructureViewElement(it as EbnfRuleImpl)
-                }?.toTypedArray() ?: emptyArray()
+                    it as EbnfRuleImpl
+                }
             }
 
             is EbnfRule -> {
-                element.getDefinition()
-                    ?.let { arrayOf(EbnfStructureViewElement(it as EbnfExprImpl)) }
-                    ?: emptyArray()
+                element.getDefinition()?.let { listOf(it as EbnfExprImpl) }
             }
 
             is EbnfTreeNode -> {
-                element.getChildrenExpr().map { EbnfStructureViewElement(it as EbnfExprNodeImpl) }
-                    .toTypedArray()
+                element.getChildrenExpr().map { it as EbnfExprImpl }
             }
 
-            else -> emptyArray()
-        }
+            else -> emptyList()
+        } ?: return emptyArray()
+
+        return children.map { EbnfStructureViewElement(liftFromGroup(it)) }.toTypedArray()
+    }
+
+    private fun liftFromGroup(element: NavigatablePsiElement): NavigatablePsiElement {
+        if (element !is EbnfGroupExprImpl) return element
+        val child = element.getChildrenExpr().getOrNull(0) as EbnfExprImpl? ?: return element
+        return liftFromGroup(child)
     }
 
     private val navigationTarget: NavigatablePsiElement
