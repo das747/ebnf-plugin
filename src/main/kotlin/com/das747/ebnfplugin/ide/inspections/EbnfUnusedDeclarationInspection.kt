@@ -52,7 +52,7 @@ class EbnfUnusedDeclarationInspection : LocalInspectionTool() {
     }
 }
 
-private class SafeDeleteRuleQuickFix: LocalQuickFix, HighPriorityAction {
+private class SafeDeleteRuleQuickFix : LocalQuickFix, HighPriorityAction {
     override fun getFamilyName(): String = "Safe delete"
 
     override fun getName(): String = "Safe delete rule"

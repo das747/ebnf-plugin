@@ -35,14 +35,17 @@ class EbnfMultipleDeclarationsInspection : LocalInspectionTool() {
     }
 }
 
-private class CombineRuleDeclarationsQuickFix: LocalQuickFix {
+private class CombineRuleDeclarationsQuickFix : LocalQuickFix {
     override fun getFamilyName(): String = "Combine rule declarations"
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val target = descriptor.psiElement
         if (target !is EbnfRule) return
         val rules = target.containingFile.findRulesByName(target.name)
-        val newRule = EbnfElementFactory.createRule(project, target.name ?: "", rules.map { it.getDefinition()?.text ?: "" })
+        val newRule = EbnfElementFactory.createRule(
+            project,
+            target.name ?: "",
+            rules.map { it.getDefinition()?.text ?: "" })
         target.replace(newRule)
         rules.filter { it != target }.forEach { it.delete() }
     }

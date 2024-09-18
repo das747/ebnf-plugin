@@ -91,7 +91,7 @@ fun PsiElement.hasSameElementType(other: PsiElement): Boolean {
 fun EbnfAlternativeExpr.deleteVariant(variant: EbnfExpr) {
     PsiTreeUtil.getPrevSiblingOfType(variant, EbnfExpr::class.java)?.let { prev ->
         this.deleteChildRange(prev.nextSibling, variant)
-    } ?: PsiTreeUtil.getNextSiblingOfType(variant, EbnfExpr::class.java)?.let {next ->
+    } ?: PsiTreeUtil.getNextSiblingOfType(variant, EbnfExpr::class.java)?.let { next ->
         this.deleteChildRange(variant, next.prevSibling)
     } ?: variant.delete()
 }

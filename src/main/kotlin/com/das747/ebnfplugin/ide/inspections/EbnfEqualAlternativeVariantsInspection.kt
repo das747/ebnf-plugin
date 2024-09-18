@@ -10,7 +10,6 @@ import com.intellij.codeInspection.*
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.SmartPointerManager
-import com.intellij.psi.util.PsiTreeUtil
 
 class EbnfEqualAlternativeVariantsInspection : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
