@@ -39,7 +39,7 @@
       implementationClass="com.das747.ebnfplugin.lang.EbnfSyntaxHighlighterFactory"/>
     <annotator
       language="EBNF"
-      implementationClass="com.das747.ebnfplugin.lang.EbnfAnnotator"/>
+      implementationClass="com.das747.ebnfplugin.ide.EbnfAnnotator"/>
     <lang.elementManipulator
       forClass="com.das747.ebnfplugin.lang.psi.EbnfNonTerminal"
       implementationClass="com.das747.ebnfplugin.lang.psi.EbnfNonTerminalElementManipulator"/>

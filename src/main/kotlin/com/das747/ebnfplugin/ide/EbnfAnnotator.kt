@@ -1,5 +1,8 @@
-package com.das747.ebnfplugin.lang
+package com.das747.ebnfplugin.ide
 
+import com.das747.ebnfplugin.ide.intentions.EbnfCreateDefinitionIntention
+import com.das747.ebnfplugin.lang.checkIfLhs
+import com.das747.ebnfplugin.lang.findRulesByName
 import com.das747.ebnfplugin.lang.psi.EbnfNonTerminal
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.lang.annotation.AnnotationHolder
@@ -27,6 +30,7 @@ class EbnfAnnotator : Annotator {
             holder.newAnnotation(HighlightSeverity.ERROR, "Undefined non-terminal")
                 .range(element.textRange)
                 .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
+                .withFix(EbnfCreateDefinitionIntention(element.value))
                 .create()
         } else {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
