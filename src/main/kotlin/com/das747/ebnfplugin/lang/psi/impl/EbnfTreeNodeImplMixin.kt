@@ -26,7 +26,7 @@ abstract class EbnfTreeNodeImplMixin(node: ASTNode) : EbnfTreeNode, EbnfExprNode
             is EbnfConcatExpr -> "concatenation of "
             is EbnfMultipleExpr -> "zero or more of"
             is EbnfAlternativeExpr -> "any of"
-            is EbnfOptionalExpr -> "one or more of"
+            is EbnfOptionalExpr -> "optional"
             else -> null
         }
         return createPresentationFor(this, text)
