@@ -1,0 +1,30 @@
+// unused rule
+unusedRule := "this rule is unused" ["can be safe deleted"];
+
+// undefined non-terminal
+defined := "defined non-terminal";
+ruleWithUndefinedNT := defined | undefined;
+
+// multiple declarations
+// if rule has multiple declarations, they are treated as alternative variants
+sameRule := "first declaration";
+sameRule := "second declaration";
+sameRule := "third declaration";
+
+// equivalent variants
+ruleWithEquivalentVariants := "unique" | a {b | a} | "also unique" | a {b | a};
+
+// redundant grouping
+// also see grouping.ebnf
+ruleWithGrouping := (a b) c | {{a}} | [(c)];
+
+// alternative push-down
+rule := [a b] | [c | b] | {a b} | {c | b};
+
+
+// these are just for highlighting to work properly
+a := "a";
+b := "b";
+c := "c";
+T := sameRule | ruleWithUndefinedNT | ruleWithEquivalentVariants | ruleWithGrouping | rule;
+

@@ -1,0 +1,8 @@
+digitNotZero := "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+digit := "0" | digitNotZero;
+naturalNumber := digitNotZero {digit};
+integer := "0" | ["-"] naturalNumber;
+
+expr := expr1 {('+' | '-') expr1};
+expr1 := atom {('*' | '/') atom};
+atom := integer | '(' expr ')';

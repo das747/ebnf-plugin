@@ -5,34 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac227546-1101-4728-b50f-978d5886ffa0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/parser/EbnfParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfAlternativeExpr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfConcatExpr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfExpr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfGroupExpr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfMultipleExpr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfNonTerminal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfOptionalExpr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfRule.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfTerminal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfTypes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/EbnfVisitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfAlternativeExprImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfConcatExprImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfExprImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfGroupExprImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfMultipleExprImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfNonTerminalImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfOptionalExprImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfRuleImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/com/das747/ebnfplugin/lang/psi/impl/EbnfTerminalImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/das747/ebnfplugin/lang/Ebnf.bnf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/das747/ebnfplugin/lang/Ebnf.bnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/DefaultTestData.ebnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/arithmetics.ebnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/grouping.ebnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/inspections.ebnf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,14 +62,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="InspectionDescription" />
         <option value="Class" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/com/das747/ebnfplugin/ide/EbnfStructureViewElement.kt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -112,13 +95,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build Plugin.executor": "Run",
     "Gradle.Build ebnf-plugin.executor": "Run",
     "Gradle.Run Plugin.executor": "Run",
     "Gradle.ebnf-plugin [setupDependencies].executor": "Run",
     "Gradle.ebnf-plugin [test].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/andrewpronichev/Documents/Data/Projects/ebnf-plugin/src/main/resources/icons",
+    "last_opened_file_path": "/Users/andrewpronichev/Documents/Data/Projects/ebnf-plugin/examples",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -137,25 +122,49 @@
       <recent name="com.das747.ebnfplugin.lang.parser" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/examples" />
       <recent name="$PROJECT_DIR$/src/main/resources/icons" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/icons" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.das747.ebnfplugin.ide" />
       <recent name="com.das747.ebnfplugin.ide.inspections" />
       <recent name="com.das747.ebnfplugin" />
-      <recent name="com.das747.ebnfplugin.ide" />
       <recent name="com.das747.ebnfplugin.lang.psi" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ebnf-plugin [test]">
+  <component name="RunManager" selected="Gradle.Run Plugin">
+    <configuration name="Build Plugin" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="buildPlugin" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="ebnf-plugin [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -172,6 +181,11 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Gradle.Run Plugin" />
+      <item itemvalue="Gradle.Build Plugin" />
+      <item itemvalue="Gradle.ebnf-plugin [test]" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ebnf-plugin [test]" />
@@ -211,6 +225,13 @@
       <workItem from="1726593700832" duration="177000" />
       <workItem from="1726593892154" duration="67000" />
       <workItem from="1726593970611" duration="566000" />
+      <workItem from="1726594539954" duration="27279000" />
+      <workItem from="1726748895215" duration="1750000" />
+      <workItem from="1726750938789" duration="108000" />
+      <workItem from="1726751057060" duration="252000" />
+      <workItem from="1726751320328" duration="6413000" />
+      <workItem from="1726757755858" duration="83000" />
+      <workItem from="1726757848444" duration="3258000" />
     </task>
     <servers />
   </component>
@@ -242,11 +263,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/com/das747/ebnfplugin/lang/psi/EbnfElementFactory.kt</url>
-          <line>10</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <condition expression="toString().contains(&quot;Ebnf&quot;)" language="JAVA" />
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2023.2.6/f9a8cbfa07e631d1615cc5096d6f84cf2522e27b/ideaIC-2023.2.6-sources.jar!/com/intellij/patterns/ElementPattern.java</url>
@@ -262,11 +278,16 @@
           <line>65</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/das747/ebnfplugin/ide/inspections/EbnfAlternativePushDownInspection.kt</url>
+          <line>57</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
-        <PinnedItemInfo parentTag="com.intellij.psi.impl.source.tree.CompositeElement" memberName="value" />
+        <PinnedItemInfo parentTag="com.intellij.psi.impl.source.tree.CompositeElement" memberName="lastChild" />
       </pinned-members>
     </pin-to-top-manager>
     <watches-manager>

@@ -1,0 +1,30 @@
+a := a;
+b := b;
+
+group := (a);
+optional := [a];
+multiple := {a};
+
+nestedGroup := ((a));
+altInGroup := (a | b);
+concatInGroup := (a b);
+optInGroup := ([a]);
+multInGroup := ({a});
+
+nestedOpt := [[a]];
+nestedMult := {{a}};
+multInOpt := [{a}];
+
+multInAlt := a | {a};
+multGroupInAlt := a | ({a});
+altInAlt := a | (a | b);
+concatInAlt := a | (a b);
+multConcatInAlt := a | {a b};
+
+optInConcat := a [b];
+optGroupInConcat := a ([b]);
+altInConcat := a (a | b);
+
+
+
+
